@@ -21,6 +21,7 @@
     "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsup src/index.ts --format esm --platform node --target node20 --dts --sourcemap --no-splitting --external commander",
     "test": "yarn build && vitest run tests/cli.test.ts tests/cli.integration.test.ts",
     "test:integration": "yarn build && vitest run tests/cli.integration.test.ts",
+    "test:e2e:live": "yarn build && vitest run tests/live-e2e.test.ts",
     "check": "yarn test"
   },
   "dependencies": {

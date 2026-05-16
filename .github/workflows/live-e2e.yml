@@ -1,0 +1,32 @@
+name: Live E2E
+
+on:
+  workflow_dispatch:
+
+jobs:
+  live-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - name: Verify required live E2E secrets
+        env:
+          VOOSH_E2E_BASE_URL: ${{ secrets.VOOSH_E2E_BASE_URL }}
+          VOOSH_E2E_CHRIS_TOKEN: ${{ secrets.VOOSH_E2E_CHRIS_TOKEN }}
+        run: |
+          test -n "$VOOSH_E2E_BASE_URL" || { echo "Missing required secret VOOSH_E2E_BASE_URL" >&2; exit 1; }
+          test -n "$VOOSH_E2E_CHRIS_TOKEN" || { echo "Missing required secret VOOSH_E2E_CHRIS_TOKEN" >&2; exit 1; }
+      - name: Run live E2E smoke tests
+        env:
+          VOOSH_RUN_LIVE_E2E: '1'
+          VOOSH_E2E_BASE_URL: ${{ secrets.VOOSH_E2E_BASE_URL }}
+          VOOSH_E2E_CHRIS_TOKEN: ${{ secrets.VOOSH_E2E_CHRIS_TOKEN }}
+          VOOSH_E2E_OTTO_TOKEN: ${{ secrets.VOOSH_E2E_OTTO_TOKEN }}
+          VOOSH_E2E_ORG_ID: ${{ secrets.VOOSH_E2E_ORG_ID }}
+          VOOSH_E2E_CALENDAR_ID: ${{ secrets.VOOSH_E2E_CALENDAR_ID }}
+          VOOSH_E2E_BOOKMARK_CALENDAR_ID: ${{ secrets.VOOSH_E2E_BOOKMARK_CALENDAR_ID }}
+        run: yarn run test:e2e:live
