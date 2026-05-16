@@ -20,7 +20,7 @@ yarn install
 yarn run check
 ```
 
-For local development, the package uses only this repository's internal schema/client sources; there is no sibling SDK dependency. `yarn run check` builds a bundled CLI artifact and runs both unit-style command tests and the built-entrypoint integration tests. To run only the integration tests after a build, use `yarn run test:integration`.
+For local development, the package uses only this repository's internal schema/client sources; there is no sibling SDK dependency. `yarn run check` builds a bundled CLI artifact and runs both unit-style command tests and the built-entrypoint integration tests against a local mock HTTP server. To run only the offline integration tests after a build, use `yarn run test:integration`.
 
 Before publishing, run:
 
@@ -30,6 +30,31 @@ npm pack --dry-run
 ```
 
 The pack output should contain only package metadata/README plus built `dist` files; source, tests, and `node_modules` are excluded by the package `files` whitelist.
+
+### Optional live E2E smoke tests
+
+Live E2E tests are intentionally opt-in and are not part of `yarn run check` or the default CI workflow. They build the CLI and run `dist/index.js` against a real voosh API using explicit live-test environment variables:
+
+```bash
+VOOSH_RUN_LIVE_E2E=1 \
+VOOSH_E2E_BASE_URL=https://api.example.test \
+VOOSH_E2E_CHRIS_TOKEN=... \
+yarn run test:e2e:live
+```
+
+Required variables:
+
+- `VOOSH_RUN_LIVE_E2E=1` enables the live suite. Without it, the suite is skipped with a reason.
+- `VOOSH_E2E_BASE_URL` is the live API base URL. Do not include secrets in this URL.
+- `VOOSH_E2E_CHRIS_TOKEN` is the API token used by the built CLI as `VOOSH_API_TOKEN`.
+
+The current live suite performs an authenticated smoke check plus calendar, event, and slot create/read/update/list/delete lifecycles using resources with a `voosh-cli-live-e2e-` prefix so cleanup is scoped to resources created by the test. It also exercises optional flows when fixture secrets are present:
+
+- `VOOSH_E2E_OTTO_TOKEN` enables slot registration/withdrawal as a second user.
+- `VOOSH_E2E_ORG_ID` enables organization detail and membership checks.
+- `VOOSH_E2E_BOOKMARK_CALENDAR_ID` or `VOOSH_E2E_CALENDAR_ID` enables bookmark add/list/remove checks.
+
+A manual GitHub Actions workflow, `Live E2E`, is available through `workflow_dispatch` only. Configure required repository secrets (`VOOSH_E2E_BASE_URL`, `VOOSH_E2E_CHRIS_TOKEN`) before running it; the workflow fails fast when required secrets are missing. Optional fixture secrets enable the broader smoke checks listed above.
 
 ## Usage
 
@@ -146,4 +171,4 @@ The Python CLI remains the parity reference. The current Node CLI covers the v1 
 
 - Natural date parsing is deliberately bounded to UTC and the four supported forms above; broader locale/timezone parsing is not implemented yet.
 - Organization/member management remains read-only in the Node CLI because the current parity slice only exposed organization and membership listing/retrieval commands.
-- This package's integration tests use a local mock HTTP server rather than a live Django instance; live end-to-end smoke testing remains a release/deployment concern.
+- Live E2E smoke coverage is opt-in via `yarn run test:e2e:live` and the manual GitHub Actions workflow, so default checks remain offline and deterministic.
