@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn run check
+      - name: Pack smoke test
+        run: |
+          yarn --non-interactive pack --filename /tmp/voosh-cli-0.1.0.tgz
+          tmpdir=$(mktemp -d)
+          npm install --prefix "$tmpdir" /tmp/voosh-cli-0.1.0.tgz
+          "$tmpdir/node_modules/.bin/voosh" --help

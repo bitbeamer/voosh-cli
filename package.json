@@ -1,0 +1,40 @@
+{
+  "name": "@voosh/cli",
+  "version": "0.1.0",
+  "description": "Node.js CLI for the voosh API.",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "voosh": "./dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsup src/index.ts --format esm --platform node --target node20 --dts --sourcemap --no-splitting --external commander",
+    "test": "yarn build && vitest run tests/cli.test.ts tests/cli.integration.test.ts",
+    "test:integration": "yarn build && vitest run tests/cli.integration.test.ts",
+    "check": "yarn test"
+  },
+  "dependencies": {
+    "commander": "^14.0.2",
+    "openapi-fetch": "^0.15.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.13"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "yarn@1.22.22"
+}
