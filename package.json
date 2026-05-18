@@ -1,6 +1,6 @@
 {
   "name": "@voosh/cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Node.js CLI for the voo.sh API.",
   "license": "MIT",
   "private": false,
@@ -8,7 +8,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "voosh": "./dist/index.js"
+    "voosh": "dist/index.js"
   },
   "publishConfig": {
     "access": "public"

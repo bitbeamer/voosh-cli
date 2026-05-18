@@ -131,7 +131,7 @@ export class VooshApiError extends Error {
 
   constructor(params: { status: number; body: unknown; requestId: string | undefined }) {
     const { code, detail } = normalizeErrorBody(params.body);
-    super(detail ?? code ?? `voosh API request failed with status ${params.status}`);
+    super(detail ?? code ?? `voo.sh API request failed with status ${params.status}`);
     this.name = "VooshApiError";
     this.status = params.status;
     this.code = code;

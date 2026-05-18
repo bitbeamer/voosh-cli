@@ -153,10 +153,10 @@ export function buildProgram(runtime: CliRuntime = {}): Command {
 
   program
     .name("voosh")
-    .description("Node.js CLI for the voosh API.")
+    .description("Node.js CLI for the voo.sh API.")
     .option("--json", "Emit stable JSON output.")
     .option("--quiet", "Suppress human success output.")
-    .option("--api-url <url>", "voosh API host URL (defaults to VOOSH_API_URL or https://voo.sh).")
+    .option("--api-url <url>", "voo.sh API host URL (defaults to VOOSH_API_URL or https://voo.sh).")
     .option("--profile <name>", "Configuration profile name.", "default")
     .option("--timezone <zone>", "Timezone for natural event/slot datetimes: --timezone > VOOSH_TIMEZONE > UTC. Only UTC is currently supported.")
     .option("--no-color", "Disable colored output.")

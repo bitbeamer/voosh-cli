@@ -1,6 +1,6 @@
 # @voosh/cli
 
-Node.js CLI for the voosh API.
+Node.js CLI for the voo.sh API.
 
 This repository is a standalone CLI-only public repo. It does not depend on a sibling `@voosh/sdk` package: the OpenAPI schema and TypeScript API client are internalized under `src/generated/schema.ts` and `src/client.ts`, and the build bundles that local client into `dist/index.js`. The CLI implements agent-friendly auth/config/profile management, stable JSON output, and Python CLI parity command groups for the current v1 slice.
 
@@ -33,7 +33,7 @@ The pack output should contain only package metadata/README plus built `dist` fi
 
 ### Optional live E2E smoke tests
 
-Live E2E tests are intentionally opt-in and are not part of `yarn run check` or the default CI workflow. They build the CLI and run `dist/index.js` against a real voosh API using explicit live-test environment variables:
+Live E2E tests are intentionally opt-in and are not part of `yarn run check` or the default CI workflow. They build the CLI and run `dist/index.js` against the real voo.sh API using explicit live-test environment variables:
 
 ```bash
 VOOSH_RUN_LIVE_E2E=1 \
