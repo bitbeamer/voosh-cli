@@ -46,7 +46,7 @@ export interface StoredConfig {
 
 export type ConfigValueSource = "flag" | "env" | "profile" | "default";
 
-const DEFAULT_API_URL = "http://localhost:8000";
+const DEFAULT_API_URL = "https://voo.sh";
 const DEFAULT_PROFILE = "default";
 
 export function resolveConfig(options: GlobalOptions, env: CliEnv): CliConfig {

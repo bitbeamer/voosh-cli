@@ -1195,6 +1195,23 @@ describe("voosh node CLI", () => {
     });
   });
 
+  it("defaults to production voo.sh host for first-run API commands", async () => {
+    await withConfigPath(async (configPath) => {
+      const io = createIo();
+      const client = createClient();
+      const createClientMock = vi.fn(() => client);
+
+      const exitCode = await run(["me", "show"], {
+        env: { VOOSH_CONFIG_PATH: configPath, VOOSH_API_TOKEN: "token-123" },
+        io,
+        createClient: createClientMock,
+      });
+
+      expect(exitCode).toBe(0);
+      expect(createClientMock).toHaveBeenCalledWith({ baseUrl: "https://voo.sh", token: "token-123" });
+    });
+  });
+
   it("auth login verifies by default before saving", async () => {
     await withConfigPath(async (configPath) => {
       const io = createIo();
@@ -1210,7 +1227,20 @@ describe("voosh node CLI", () => {
       expect(exitCode).toBe(0);
       expect(createClientMock).toHaveBeenCalledWith({ baseUrl: "https://api.example.test", token: "verify-token" });
       expect(client.me.retrieve).toHaveBeenCalledOnce();
-      expect(JSON.parse(output(io.stdout))).toMatchObject({ code: "saved", token_configured: true });
+      expect(JSON.parse(output(io.stdout))).toMatchObject({
+        code: "saved",
+        base_url: "https://api.example.test",
+        api_url_source: "flag",
+        token_configured: true,
+      });
+      expect(JSON.parse(await readFile(configPath, "utf8"))).toEqual({
+        profiles: {
+          default: {
+            apiUrl: "https://api.example.test",
+            token: "verify-token",
+          },
+        },
+      });
     });
   });
 

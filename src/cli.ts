@@ -156,7 +156,7 @@ export function buildProgram(runtime: CliRuntime = {}): Command {
     .description("Node.js CLI for the voosh API.")
     .option("--json", "Emit stable JSON output.")
     .option("--quiet", "Suppress human success output.")
-    .option("--api-url <url>", "voosh API host URL (defaults to VOOSH_API_URL or http://localhost:8000).")
+    .option("--api-url <url>", "voosh API host URL (defaults to VOOSH_API_URL or https://voo.sh).")
     .option("--profile <name>", "Configuration profile name.", "default")
     .option("--timezone <zone>", "Timezone for natural event/slot datetimes: --timezone > VOOSH_TIMEZONE > UTC. Only UTC is currently supported.")
     .option("--no-color", "Disable colored output.")
@@ -176,6 +176,9 @@ export function buildProgram(runtime: CliRuntime = {}): Command {
         await clientFactory({ baseUrl: context.config.apiUrl, token }).me.retrieve();
       }
       updateProfile(context.config.configPath, context.config.profile, (profile) => {
+        if (context.config.apiUrlSource === "flag") {
+          profile.apiUrl = context.config.apiUrl;
+        }
         profile.token = token;
       });
       renderResult(context.io, authStatusData(resolveConfig(getGlobals(this), env), "saved"), {
