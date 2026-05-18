@@ -187,7 +187,7 @@ export interface VooshClient {
 }
 
 export function createVooshClient(options: VooshClientOptions = {}): VooshClient {
-  const baseUrl = stripTrailingSlash(options.baseUrl ?? "http://localhost:8000");
+  const baseUrl = stripTrailingSlash(options.baseUrl ?? "https://voo.sh");
   const fetchImplementation = options.fetch ?? globalThis.fetch;
 
   if (!fetchImplementation) {
