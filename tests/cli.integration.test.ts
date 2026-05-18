@@ -18,6 +18,7 @@ interface RecordedRequest {
   path: string;
   query: URLSearchParams;
   authorization?: string;
+  contentType?: string;
   body?: unknown;
 }
 
@@ -51,6 +52,7 @@ describe("voosh built CLI integration", () => {
   it("executes representative completed command groups against the SDK over HTTP", async () => {
     const me = await runCli(["--json", "me", "show"]);
     const calendars = await runCli(["--json", "calendars", "list", "--scope", "managed"]);
+    const createdCalendar = await runCli(["--json", "calendars", "create", "--title", "Integration Created"]);
     const event = await runCli([
       "--json",
       "events",
@@ -70,21 +72,24 @@ describe("voosh built CLI integration", () => {
 
     expect(me.status).toBe(0);
     expect(calendars.status).toBe(0);
+    expect(createdCalendar.status).toBe(0);
     expect(event.status).toBe(0);
     expect(slotRegistration.status).toBe(0);
     expect(bookmark.status).toBe(0);
     expect(memberships.status).toBe(0);
     expect(JSON.parse(me.stdout)).toMatchObject({ username: "integration-user" });
     expect(JSON.parse(calendars.stdout).results[0]).toMatchObject({ calendar_id: CALENDAR_UUID, title: "Integration Team" });
+    expect(JSON.parse(createdCalendar.stdout)).toMatchObject({ calendar_id: CALENDAR_UUID, title: "Integration Created" });
     expect(JSON.parse(event.stdout)).toMatchObject({ event_id: EVENT_UUID, summary: "Integration Training", all_day: false });
     expect(JSON.parse(slotRegistration.stdout)).toMatchObject({ registration_id: "registration-1", status: "confirmed" });
     expect(JSON.parse(bookmark.stdout)).toMatchObject({ bookmark_id: "bookmark-1" });
     expect(JSON.parse(memberships.stdout).results[0]).toMatchObject({ membership_id: "membership-1", username: "alice" });
-    expect([me, calendars, event, slotRegistration, bookmark, memberships].map((result) => result.stderr)).toEqual(["", "", "", "", "", ""]);
+    expect([me, calendars, createdCalendar, event, slotRegistration, bookmark, memberships].map((result) => result.stderr)).toEqual(["", "", "", "", "", "", ""]);
 
     expect(requests.map((request) => `${request.method} ${request.path}`)).toEqual([
       "GET /api/v1/me",
       "GET /api/v1/calendars",
+      "POST /api/v1/calendars",
       `POST /api/v1/calendars/${CALENDAR_UUID}/events`,
       `POST /api/v1/slots/${SLOT_UUID}/registrations/register`,
       `PUT /api/v1/calendars/${CALENDAR_UUID}/bookmark`,
@@ -92,12 +97,15 @@ describe("voosh built CLI integration", () => {
     ]);
     expect(requests.every((request) => request.authorization === "Bearer integration-token")).toBe(true);
     expect(requests[1]?.query.get("scope")).toBe("managed");
-    expect(requests[2]?.body).toMatchObject({
+    expect(requests[2]?.contentType).toContain("application/json");
+    expect(requests[2]?.body).toMatchObject({ title: "Integration Created" });
+    expect(requests[3]?.contentType).toContain("application/json");
+    expect(requests[3]?.body).toMatchObject({
       summary: "Integration Training",
       start: "2026-01-03T18:00:00Z",
       end: "2026-01-03T20:00:00Z",
     });
-    expect(requests[5]?.query.get("page")).toBe("2");
+    expect(requests[6]?.query.get("page")).toBe("2");
   });
 
   it("emits stable JSON error shapes for API failures from the built entrypoint", async () => {
@@ -136,6 +144,7 @@ async function handleRequest(request: IncomingMessage, response: ServerResponse)
     path: url.pathname,
     query: url.searchParams,
     authorization: request.headers.authorization,
+    contentType: request.headers["content-type"],
     body,
   });
 
@@ -156,6 +165,12 @@ async function handleRequest(request: IncomingMessage, response: ServerResponse)
       previous: null,
       results: [calendar()],
     });
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/v1/calendars") {
+    const payload = body as Record<string, unknown>;
+    writeJson(response, 201, { ...calendar(), title: payload.title });
     return;
   }
 

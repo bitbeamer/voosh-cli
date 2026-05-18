@@ -1,7 +1,7 @@
 {
   "name": "@voosh/cli",
   "version": "0.1.1",
-  "description": "Node.js CLI for the voosh API.",
+  "description": "Node.js CLI for the voo.sh API.",
   "license": "MIT",
   "private": false,
   "type": "module",

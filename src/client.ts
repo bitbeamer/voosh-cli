@@ -201,7 +201,11 @@ export function createVooshClient(options: VooshClientOptions = {}): VooshClient
     const requestId = nextRequestId ?? resolveRequestId(options.requestId);
     nextRequestId = undefined;
 
-    const headers = new Headers(init?.headers);
+    const request = new Request(input, init);
+    const headers = new Headers(request.headers);
+    if (request.body !== null && !headers.has("Content-Type")) {
+      headers.set("Content-Type", "application/json");
+    }
     if (options.token && !headers.has("Authorization")) {
       headers.set("Authorization", `Bearer ${options.token}`);
     }
@@ -209,7 +213,7 @@ export function createVooshClient(options: VooshClientOptions = {}): VooshClient
       headers.set("X-Request-ID", requestId);
     }
 
-    const response = await fetchImplementation(input, { ...init, headers });
+    const response = await fetchImplementation(request, { headers });
     requestContext.set(response, requestId);
     return response;
   };
