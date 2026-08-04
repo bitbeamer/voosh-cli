@@ -2,7 +2,7 @@
 
 Node.js CLI for the voo.sh API.
 
-This repository is a standalone CLI-only public repo. It does not depend on a sibling `@voosh/sdk` package: the OpenAPI schema and TypeScript API client are internalized under `src/generated/schema.ts` and `src/client.ts`, and the build bundles that local client into `dist/index.js`. The CLI implements agent-friendly auth/config/profile management, stable JSON output, and Python CLI parity command groups for the current v1 slice.
+This repository is a standalone CLI-only public repo. It does not depend on a sibling `@voosh/sdk` package: the current voo.sh OpenAPI contract, generated TypeScript schema, and client are bundled locally. Common calendar workflows have ergonomic commands, while `voosh api` discovers, describes, and calls every operation in the bundled API contract. The CLI currently exposes all 86 v1 operations.
 
 ## Install from npm
 
@@ -29,7 +29,18 @@ yarn run check
 npm pack --dry-run
 ```
 
-The pack output should contain only package metadata/README plus built `dist` files; source, tests, and `node_modules` are excluded by the package `files` whitelist.
+The pack output should contain package metadata, the README, `SKILL.md`, the bundled OpenAPI contract, and built `dist` files; source, tests, and `node_modules` are excluded by the package `files` whitelist.
+
+### Sync the API contract
+
+When the voo.sh server repository is available at `../voosh`, refresh the bundled contract and generated sources with:
+
+```bash
+yarn sync:openapi
+yarn run check
+```
+
+Pass another schema path to `yarn sync:openapi -- /path/to/openapi.yaml` when the server checkout is elsewhere. Commit the OpenAPI snapshot and both generated TypeScript files together.
 
 ### Optional live E2E smoke tests
 
@@ -66,6 +77,9 @@ VOOSH_API_TOKEN=... voosh events create --calendar <calendar-id> --summary "Trai
 VOOSH_API_TOKEN=... voosh slots register <slot-id> --json
 VOOSH_API_TOKEN=... voosh bookmarks add <calendar-id>
 VOOSH_API_TOKEN=... voosh memberships list --org <org-id>
+voosh --json api operations --tag organizations
+voosh --json api describe organization_asset_create
+VOOSH_API_TOKEN=... voosh --json api call me_update --body '{"language":"en"}'
 voosh --profile work config set-base-url https://api.example.test
 voosh --profile work auth login --token ... --no-verify
 ```
@@ -74,7 +88,7 @@ Global flags:
 
 - `--json` emits stable JSON output.
 - `--quiet` suppresses successful human output. JSON output is still emitted.
-- `--api-url <url>` overrides `VOOSH_API_URL`, profile config, and defaults to `http://localhost:8000`.
+- `--api-url <url>` overrides `VOOSH_API_URL`, profile config, and defaults to `https://voo.sh`.
 - `--profile <name>` selects the stored profile, defaulting to `default`.
 - `--timezone <zone>` selects the timezone for natural event/slot datetimes. Precedence is `--timezone > VOOSH_TIMEZONE > UTC`; only `UTC` is currently supported.
 - `--no-color` disables color support. The CLI currently avoids color by default.
@@ -115,7 +129,10 @@ Unsupported natural forms and unsupported timezones return stable JSON usage err
 - `voosh auth status`
 - `voosh config show`
 - `voosh config set-base-url URL`
-- `voosh calendars list [--scope accessible|managed|bookmarked] [--page N]`
+- `voosh api operations [--tag TAG] [--method METHOD] [--search TEXT]`
+- `voosh api describe <operation-id>`
+- `voosh api call <operation-id> [request options]`
+- `voosh calendars list [--scope accessible|bookmarked|favorites|managed|related|sidebar] [--page N]`
 - `voosh calendars get <calendar-id> [--with-events|--include-upcoming-events] [--days N]`
 - `voosh calendars create --title TITLE [--description TEXT] [--visibility VALUE] [--remote-url URL] [--org-id UUID] [--manager-username USERNAME]...`
 - `voosh calendars update <calendar-id> [--title TITLE] [--description TEXT] [--visibility VALUE] [--remote-url URL] [--manager-username USERNAME]...`
@@ -141,6 +158,35 @@ Unsupported natural forms and unsupported timezones return stable JSON usage err
 - `voosh organizations memberships <org-id> [--page N]`
 - `voosh memberships list --org ORG_ID [--page N]`
 
+## Complete API access
+
+Use the generic API commands for functionality without a dedicated convenience command, including API tokens, invitations, calendar composition, ICS import and refresh, event occurrences and materialization, slot generators, registration management and audit data, organization membership administration, assets, Discourse integration, and location lookup.
+
+```bash
+# Find operation IDs, optionally filtered by tag, method, or text.
+voosh --json api operations --tag organizations --method POST
+
+# Inspect path/query parameters, request content types, responses, and scopes.
+voosh --json api describe organization_asset_create
+
+# Send JSON. Prefer a file for complex or shell-sensitive payloads.
+voosh --json api call calendar_composition_replace \
+  --path calendar_id=<calendar-uuid> \
+  --body-file ./composition.json
+
+# Repeat --query when an operation accepts repeated values.
+voosh --json api call events_list --query from=2026-08-01 --query to=2026-08-31
+
+# Upload multipart assets or ICS files.
+voosh --json api call organization_asset_create \
+  --path org_id=<organization-uuid> \
+  --form type=image \
+  --form label='Demo banner' \
+  --file file=./banner.webp
+```
+
+`api call` supports repeatable `--path NAME=VALUE`, `--query NAME=VALUE`, and `--header NAME=VALUE`; either `--body JSON` or `--body-file PATH`; and repeatable multipart `--form NAME=VALUE` and `--file NAME=PATH`. It sends the configured bearer token by default. Use `--anonymous` only when deliberately calling an operation without credentials. Binary responses are represented as base64 in JSON output.
+
 ## Stable JSON error shape
 
 When `--json` is set, errors are emitted to stderr as:
@@ -157,7 +203,7 @@ When `--json` is set, errors are emitted to stderr as:
 }
 ```
 
-`details` may contain the raw API error body or CLI validation details. Stable local validation codes include `usage_error`, `missing_api_token`, `invalid_token`, `no_changes_provided`, `invalid_date_range`, `missing_event_start`, `invalid_datetime`, `invalid_now`, `unsupported_timezone`, and `conflicting_slot_visibility_options`.
+`details` may contain the raw API error body or CLI validation details. Stable local validation codes include `usage_error`, `unknown_api_operation`, `missing_path_parameter`, `invalid_json_body`, `body_file_unreadable`, `upload_file_unreadable`, `missing_api_token`, `invalid_token`, `no_changes_provided`, `invalid_date_range`, `missing_event_start`, `invalid_datetime`, `invalid_now`, `unsupported_timezone`, and `conflicting_slot_visibility_options`.
 
 ## Exit codes
 
@@ -165,10 +211,8 @@ When `--json` is set, errors are emitted to stderr as:
 - `1`: API or unexpected runtime error
 - `2`: usage or local configuration error, such as a missing API token
 
-## Remaining gaps
+## Boundaries
 
-The Python CLI remains the parity reference. The current Node CLI covers the v1 command groups listed above. Known remaining gaps are intentionally small and documented for follow-up:
-
-- Natural date parsing is deliberately bounded to UTC and the four supported forms above; broader locale/timezone parsing is not implemented yet.
-- Organization/member management remains read-only in the Node CLI because the current parity slice only exposed organization and membership listing/retrieval commands.
-- Live E2E smoke coverage is opt-in via `yarn run test:e2e:live` and the manual GitHub Actions workflow, so default checks remain offline and deterministic.
+- The generic operation runner provides complete contract coverage; dedicated convenience commands remain intentionally focused on frequent workflows.
+- Natural date parsing is deliberately bounded to UTC and the four supported forms above. Use explicit ISO-8601 values for other timezones.
+- Live E2E smoke coverage is opt-in via `yarn run test:e2e:live`; default checks remain offline and deterministic.

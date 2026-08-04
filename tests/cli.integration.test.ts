@@ -69,6 +69,14 @@ describe("voosh built CLI integration", () => {
     const slotRegistration = await runCli(["--json", "slots", "register", SLOT_UUID]);
     const bookmark = await runCli(["--json", "bookmarks", "add", CALENDAR_UUID]);
     const memberships = await runCli(["--json", "memberships", "list", "--org", ORG_UUID, "--page", "2"]);
+    const updatedProfile = await runCli([
+      "--json",
+      "api",
+      "call",
+      "me_update",
+      "--body",
+      '{"language":"en"}',
+    ]);
 
     expect(me.status).toBe(0);
     expect(calendars.status).toBe(0);
@@ -77,6 +85,7 @@ describe("voosh built CLI integration", () => {
     expect(slotRegistration.status).toBe(0);
     expect(bookmark.status).toBe(0);
     expect(memberships.status).toBe(0);
+    expect(updatedProfile.status).toBe(0);
     expect(JSON.parse(me.stdout)).toMatchObject({ username: "integration-user" });
     expect(JSON.parse(calendars.stdout).results[0]).toMatchObject({ calendar_id: CALENDAR_UUID, title: "Integration Team" });
     expect(JSON.parse(createdCalendar.stdout)).toMatchObject({ calendar_id: CALENDAR_UUID, title: "Integration Created" });
@@ -84,7 +93,8 @@ describe("voosh built CLI integration", () => {
     expect(JSON.parse(slotRegistration.stdout)).toMatchObject({ registration_id: "registration-1", status: "confirmed" });
     expect(JSON.parse(bookmark.stdout)).toMatchObject({ bookmark_id: "bookmark-1" });
     expect(JSON.parse(memberships.stdout).results[0]).toMatchObject({ membership_id: "membership-1", username: "alice" });
-    expect([me, calendars, createdCalendar, event, slotRegistration, bookmark, memberships].map((result) => result.stderr)).toEqual(["", "", "", "", "", "", ""]);
+    expect(JSON.parse(updatedProfile.stdout)).toMatchObject({ username: "integration-user", language: "en" });
+    expect([me, calendars, createdCalendar, event, slotRegistration, bookmark, memberships, updatedProfile].map((result) => result.stderr)).toEqual(["", "", "", "", "", "", "", ""]);
 
     expect(requests.map((request) => `${request.method} ${request.path}`)).toEqual([
       "GET /api/v1/me",
@@ -94,6 +104,7 @@ describe("voosh built CLI integration", () => {
       `POST /api/v1/slots/${SLOT_UUID}/registrations/register`,
       `PUT /api/v1/calendars/${CALENDAR_UUID}/bookmark`,
       `GET /api/v1/organizations/${ORG_UUID}/memberships`,
+      "PATCH /api/v1/me",
     ]);
     expect(requests.every((request) => request.authorization === "Bearer integration-token")).toBe(true);
     expect(requests[1]?.query.get("scope")).toBe("managed");
@@ -106,6 +117,8 @@ describe("voosh built CLI integration", () => {
       end: "2026-01-03T20:00:00Z",
     });
     expect(requests[6]?.query.get("page")).toBe("2");
+    expect(requests[7]?.contentType).toContain("application/json");
+    expect(requests[7]?.body).toEqual({ language: "en" });
   });
 
   it("emits stable JSON error shapes for API failures from the built entrypoint", async () => {
@@ -155,6 +168,17 @@ async function handleRequest(request: IncomingMessage, response: ServerResponse)
 
   if (request.method === "GET" && url.pathname === "/api/v1/me") {
     writeJson(response, 200, { id: 1, user_id: "user-1", username: "integration-user", email: "user@example.test" });
+    return;
+  }
+
+  if (request.method === "PATCH" && url.pathname === "/api/v1/me") {
+    writeJson(response, 200, {
+      id: 1,
+      user_id: "user-1",
+      username: "integration-user",
+      email: "user@example.test",
+      language: (body as Record<string, unknown>).language,
+    });
     return;
   }
 

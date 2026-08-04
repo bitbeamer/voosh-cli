@@ -28,6 +28,16 @@ import {
 } from "./config.js";
 import { CliError, EXIT_CODES } from "./errors.js";
 import { type IoStreams, renderResult, writeError } from "./output.js";
+import { API_OPERATION_BY_ID, API_OPERATIONS, type ApiOperation } from "./generated/operations.js";
+import {
+  executeApiOperation,
+  parseJson,
+  parseNamedFile,
+  parseNamedValue,
+  readJsonFile,
+  type NamedFile,
+  type NamedValue,
+} from "./api-command.js";
 
 export interface CliRuntime {
   env?: CliEnv;
@@ -55,7 +65,7 @@ const DEFAULT_IO: IoStreams = {
   stderr: process.stderr,
 };
 
-const CALENDAR_LIST_SCOPES = ["accessible", "managed", "bookmarked"] as const satisfies readonly NonNullable<CalendarListParams["scope"]>[];
+const CALENDAR_LIST_SCOPES = ["accessible", "bookmarked", "favorites", "managed", "related", "sidebar"] as const satisfies readonly NonNullable<CalendarListParams["scope"]>[];
 
 interface CalendarGetOptions {
   withEvents?: boolean;
@@ -121,6 +131,23 @@ interface OrganizationListOptions {
 
 interface MembershipListOptions {
   page?: number;
+}
+
+interface ApiOperationsOptions {
+  tag?: string;
+  method?: string;
+  search?: string;
+}
+
+interface ApiCallOptions {
+  path?: NamedValue[];
+  query?: NamedValue[];
+  header?: NamedValue[];
+  body?: string;
+  bodyFile?: string;
+  form?: NamedValue[];
+  file?: NamedFile[];
+  anonymous?: boolean;
 }
 
 export async function run(argv: string[], runtime: CliRuntime = {}): Promise<number> {
@@ -240,6 +267,77 @@ export function buildProgram(runtime: CliRuntime = {}): Command {
       renderResult(context.io, data, { json: context.json, quiet: context.quiet });
     });
 
+  const api = program.command("api").description("Discover and call every operation in the bundled voo.sh OpenAPI contract.");
+  api
+    .command("operations")
+    .description("List bundled API operations.")
+    .option("--tag <tag>", "Filter by OpenAPI tag.")
+    .option("--method <method>", "Filter by HTTP method.")
+    .option("--search <text>", "Search operation ID, path, summary, or description.")
+    .action(function (options: ApiOperationsOptions) {
+      const context = createCommandContext(this, env, runtime.io ?? DEFAULT_IO);
+      const operations = filterApiOperations(options).map(apiOperationData);
+      renderResult(context.io, { count: operations.length, operations }, {
+        json: context.json,
+        quiet: context.quiet,
+      });
+    });
+
+  api
+    .command("describe")
+    .description("Describe one bundled API operation.")
+    .argument("<operation-id>", "OpenAPI operation ID.")
+    .action(function (operationId: string) {
+      const context = createCommandContext(this, env, runtime.io ?? DEFAULT_IO);
+      renderResult(context.io, apiOperationData(requireApiOperation(operationId)), {
+        json: context.json,
+        quiet: context.quiet,
+      });
+    });
+
+  api
+    .command("call")
+    .description("Call any bundled API operation by operation ID.")
+    .argument("<operation-id>", "OpenAPI operation ID; inspect it first with `voosh api describe`.")
+    .option("--path <name=value>", "Path parameter; repeat for multiple values.", collectPathValue, [])
+    .option("--query <name=value>", "Query parameter; repeat for multiple or repeated values.", collectQueryValue, [])
+    .option("--header <name=value>", "Additional request header; repeat for multiple values.", collectHeaderValue, [])
+    .option("--body <json>", "JSON request body.")
+    .option("--body-file <path>", "Read the JSON request body from a file.")
+    .option("--form <name=value>", "Multipart form field; repeat for multiple values.", collectFormValue, [])
+    .option("--file <name=path>", "Multipart file field; repeat for multiple files.", collectFileValue, [])
+    .option("--anonymous", "Do not send the configured API token.")
+    .action(async function (operationId: string, options: ApiCallOptions) {
+      const context = createCommandContext(this, env, runtime.io ?? DEFAULT_IO);
+      const operation = requireApiOperation(operationId);
+      if (options.body !== undefined && options.bodyFile !== undefined) {
+        throw new CliError("Use either --body or --body-file, not both.", {
+          code: "usage_error",
+          exitCode: EXIT_CODES.usageOrConfigError,
+        });
+      }
+      const token = options.anonymous
+        ? undefined
+        : context.config.token ?? (operation.anonymousAllowed ? undefined : requireToken(context.config));
+      const jsonBody = options.body !== undefined
+        ? parseJson(options.body, "--body")
+        : options.bodyFile !== undefined
+          ? await readJsonFile(options.bodyFile)
+          : undefined;
+      const response = await executeApiOperation({
+        baseUrl: context.config.apiUrl,
+        token,
+        operation,
+        pathValues: options.path,
+        queryValues: options.query,
+        headerValues: options.header,
+        jsonBody,
+        formValues: options.form,
+        files: options.file,
+      });
+      renderResult(context.io, response.data, { json: context.json, quiet: context.quiet });
+    });
+
   const me = program.command("me").description("Profile information.");
   me.command("show")
     .description("Show the authenticated user.")
@@ -253,7 +351,7 @@ export function buildProgram(runtime: CliRuntime = {}): Command {
   calendars
     .command("list")
     .description("List accessible calendars.")
-    .option("--scope <scope>", "accessible, managed, or bookmarked", parseCalendarListScope, "accessible")
+    .option("--scope <scope>", "accessible, bookmarked, favorites, managed, related, or sidebar", parseCalendarListScope, "accessible")
     .option("--page <page>", "Page number for paginated results.", parsePositiveInteger)
     .action(async function (options: { scope: CalendarListParams["scope"]; page?: number }) {
       const context = createActionContext(this, env, runtime.io ?? DEFAULT_IO, clientFactory);
@@ -1031,6 +1129,77 @@ function parseCalendarListScope(value: string): CalendarListParams["scope"] {
   return value as CalendarListParams["scope"];
 }
 
+function requireApiOperation(operationId: string): ApiOperation {
+  const operation = API_OPERATION_BY_ID.get(operationId);
+  if (!operation) {
+    throw new CliError(`Unknown API operation: ${operationId}`, {
+      code: "unknown_api_operation",
+      exitCode: EXIT_CODES.usageOrConfigError,
+      details: { operation_id: operationId, hint: "Run `voosh api operations` to list operation IDs." },
+    });
+  }
+  return operation;
+}
+
+function filterApiOperations(options: ApiOperationsOptions): ApiOperation[] {
+  const tag = options.tag?.toLowerCase();
+  const method = options.method?.toUpperCase();
+  const search = options.search?.toLowerCase();
+  return API_OPERATIONS.filter((operation) => {
+    if (tag && !operation.tags.some((candidate) => candidate.toLowerCase() === tag)) return false;
+    if (method && operation.method !== method) return false;
+    if (search) {
+      const haystack = [
+        operation.operationId,
+        operation.path,
+        operation.summary ?? "",
+        operation.description ?? "",
+      ].join(" ").toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    return true;
+  });
+}
+
+function apiOperationData(operation: ApiOperation): Record<string, unknown> {
+  return {
+    operation_id: operation.operationId,
+    method: operation.method,
+    path: operation.path,
+    tags: operation.tags,
+    summary: operation.summary,
+    description: operation.description,
+    parameters: operation.parameters,
+    request_body_required: operation.requestBodyRequired,
+    request_content_types: operation.requestContentTypes,
+    request_schemas: operation.requestSchemas,
+    response_statuses: operation.responseStatuses,
+    required_scopes: operation.requiredScopes,
+    conditional_scopes: operation.conditionalScopes,
+    anonymous_allowed: operation.anonymousAllowed,
+  };
+}
+
+function collectPathValue(value: string, previous: NamedValue[]): NamedValue[] {
+  return [...previous, parseNamedValue(value, "--path")];
+}
+
+function collectQueryValue(value: string, previous: NamedValue[]): NamedValue[] {
+  return [...previous, parseNamedValue(value, "--query")];
+}
+
+function collectHeaderValue(value: string, previous: NamedValue[]): NamedValue[] {
+  return [...previous, parseNamedValue(value, "--header")];
+}
+
+function collectFormValue(value: string, previous: NamedValue[]): NamedValue[] {
+  return [...previous, parseNamedValue(value, "--form")];
+}
+
+function collectFileValue(value: string, previous: NamedFile[]): NamedFile[] {
+  return [...previous, parseNamedFile(value)];
+}
+
 function hasJsonFlag(argv: string[]): boolean {
   return argv.includes("--json");
 }
@@ -1069,4 +1238,3 @@ function commanderUsageError(error: CommanderError): CliError {
     exitCode: EXIT_CODES.usageOrConfigError,
   });
 }
-

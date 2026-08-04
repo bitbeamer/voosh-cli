@@ -1432,7 +1432,7 @@ describe("voosh node CLI", () => {
     expect(JSON.parse(output(io.stderr))).toMatchObject({
       error: {
         code: "usage_error",
-        message: expect.stringContaining("Expected one of: accessible, managed, bookmarked"),
+        message: expect.stringContaining("Expected one of: accessible, bookmarked, favorites, managed, related, sidebar"),
       },
     });
     expect(createClientMock).not.toHaveBeenCalled();
@@ -1688,7 +1688,7 @@ describe("voosh node CLI", () => {
   });
 
   it("accepts all calendar list scope values", async () => {
-    for (const scope of ["accessible", "managed", "bookmarked"] as const) {
+    for (const scope of ["accessible", "bookmarked", "favorites", "managed", "related", "sidebar"] as const) {
       const io = createIo();
       const client = createClient();
 
@@ -1701,6 +1701,69 @@ describe("voosh node CLI", () => {
       expect(exitCode).toBe(0);
       expect(client.calendars.list).toHaveBeenCalledWith({ scope });
     }
+  });
+
+  it("discovers and describes every generated API operation without authentication", async () => {
+    const operationsIo = createIo();
+    const describeIo = createIo();
+
+    const operationsExit = await run([
+      "--json",
+      "api",
+      "operations",
+      "--tag",
+      "organizations",
+      "--method",
+      "POST",
+    ], { env: {}, io: operationsIo });
+    const describeExit = await run([
+      "--json",
+      "api",
+      "describe",
+      "organization_asset_create",
+    ], { env: {}, io: describeIo });
+
+    expect(operationsExit).toBe(0);
+    expect(JSON.parse(output(operationsIo.stdout))).toMatchObject({
+      count: expect.any(Number),
+      operations: expect.arrayContaining([
+        expect.objectContaining({
+          operation_id: "organization_asset_create",
+          method: "POST",
+          path: "/api/v1/organizations/{org_id}/assets",
+        }),
+      ]),
+    });
+    expect(describeExit).toBe(0);
+    expect(JSON.parse(output(describeIo.stdout))).toMatchObject({
+      operation_id: "organization_asset_create",
+      request_content_types: expect.arrayContaining(["multipart/form-data"]),
+      request_schemas: {
+        "multipart/form-data": expect.objectContaining({
+          "x-schema-ref": "#/components/schemas/OrganizationAssetUpload",
+          required: ["file", "type"],
+          properties: expect.objectContaining({
+            file: expect.any(Object),
+            type: expect.objectContaining({ enum: ["image"] }),
+          }),
+        }),
+      },
+      parameters: expect.arrayContaining([expect.objectContaining({ name: "org_id", in: "path" })]),
+    });
+  });
+
+  it("returns a stable error for an unknown generated API operation", async () => {
+    const io = createIo();
+
+    const exitCode = await run(["--json", "api", "describe", "not_an_operation"], { env: {}, io });
+
+    expect(exitCode).toBe(2);
+    expect(JSON.parse(output(io.stderr))).toMatchObject({
+      error: {
+        code: "unknown_api_operation",
+        details: { operation_id: "not_an_operation" },
+      },
+    });
   });
 
   it("emits stable JSON for SDK API errors", async () => {
@@ -1765,5 +1828,6 @@ describe("voosh node CLI", () => {
     expect(output(io.stdout)).toContain("bookmarks");
     expect(output(io.stdout)).toContain("organizations");
     expect(output(io.stdout)).toContain("memberships");
+    expect(output(io.stdout)).toContain("api");
   });
 });

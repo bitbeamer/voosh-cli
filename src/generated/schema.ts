@@ -68,6 +68,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/calendars/{calendar_id}/composition": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["calendar_composition_retrieve"];
+        put: operations["calendar_composition_replace"];
+        post?: never;
+        delete: operations["calendar_composition_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calendars/{calendar_id}/composition/ics-sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["calendar_composition_ics_source_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calendars/{calendar_id}/composition/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["calendar_composition_preview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calendars/{calendar_id}/composition/source-calendars": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["calendar_composition_source_calendars"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calendars/{calendar_id}/composition/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["calendar_composition_validate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/calendars/{calendar_id}/events": {
         parameters: {
             query?: never;
@@ -78,6 +158,86 @@ export interface paths {
         get: operations["calendar_events_list"];
         put?: never;
         post: operations["calendar_events_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calendars/{calendar_id}/favorite": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["calendar_favorite_upsert"];
+        post?: never;
+        delete: operations["calendar_favorite_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calendars/{calendar_id}/ics-import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["calendars_ics_import"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calendars/{calendar_id}/ics-token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["calendars_regenerate_ics_token"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calendars/{calendar_id}/remote-refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["calendars_remote_refresh"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["events_list"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -100,6 +260,166 @@ export interface paths {
         patch: operations["events_update"];
         trace?: never;
     };
+    "/api/v1/events/{event_id}/manager-registrations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["event_registration_candidates_list"];
+        put?: never;
+        post: operations["event_manager_registrations_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/materialize": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["events_materialize"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/occurrences": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["events_occurrences_list"];
+        put?: never;
+        post?: never;
+        delete: operations["events_occurrences_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/promote": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["events_promote_occurrence"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/registration-audit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["event_registration_audit_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/registration-history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["event_registration_history_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/registrations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["event_registrations_summary"];
+        put?: never;
+        post: operations["event_registrations_cancel_all"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/slot-generators": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["event_slot_generators_list"];
+        put?: never;
+        post: operations["event_slot_generators_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/slot-generators/{generator_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["event_slot_generators_delete"];
+        options?: never;
+        head?: never;
+        patch: operations["event_slot_generators_update"];
+        trace?: never;
+    };
+    "/api/v1/events/{event_id}/slot-generators/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["event_slot_generators_run"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/events/{event_id}/slots": {
         parameters: {
             query?: never;
@@ -110,6 +430,54 @@ export interface paths {
         get: operations["event_slots_list"];
         put?: never;
         post: operations["event_slots_create"];
+        delete: operations["event_slots_delete_all"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/upcoming": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["event_upcoming_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/locations/autocomplete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["locations_autocomplete"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/locations/details": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["locations_details"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -124,6 +492,70 @@ export interface paths {
             cookie?: never;
         };
         get: operations["me_retrieve"];
+        put?: never;
+        post?: never;
+        delete: operations["me_delete"];
+        options?: never;
+        head?: never;
+        patch: operations["me_update"];
+        trace?: never;
+    };
+    "/api/v1/me/api-tokens": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["me_api_tokens_list"];
+        put?: never;
+        post: operations["me_api_tokens_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/api-tokens/{token_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["me_api_tokens_revoke"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/invitation-code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["me_invitation_code_regenerate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/registration-events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["me_registration_event_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -141,7 +573,7 @@ export interface paths {
         };
         get: operations["organizations_list"];
         put?: never;
-        post?: never;
+        post: operations["organizations_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -158,7 +590,167 @@ export interface paths {
         get: operations["organizations_retrieve"];
         put?: never;
         post?: never;
+        delete: operations["organizations_delete"];
+        options?: never;
+        head?: never;
+        patch: operations["organizations_update"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/assets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["organization_asset_list"];
+        put?: never;
+        post: operations["organization_asset_create"];
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/assets/{asset_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["organization_asset_retrieve"];
+        put?: never;
+        post?: never;
+        delete: operations["organization_asset_delete"];
+        options?: never;
+        head?: never;
+        patch: operations["organization_asset_update"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/discourse/disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["organization_discourse_disable"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/discourse/enable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["organization_discourse_enable"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/discourse/sync": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["organization_discourse_sync"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/invitation-code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["organization_invitation_code_regenerate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/invitations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["organization_invitations_list"];
+        put?: never;
+        post: operations["organization_invitations_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/invitations/{invitation_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["organization_invitation_remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/membership": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["organization_membership_leave"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/membership/favorite": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["organization_membership_favorite_set"];
+        post?: never;
+        delete: operations["organization_membership_favorite_clear"];
         options?: never;
         head?: never;
         patch?: never;
@@ -180,6 +772,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/organizations/{org_id}/memberships/{membership_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["organization_membership_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["organization_membership_update"];
+        trace?: never;
+    };
+    "/api/v1/organizations/join": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["organization_join_by_code"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/slots/{slot_id}": {
         parameters: {
             query?: never;
@@ -194,6 +818,22 @@ export interface paths {
         options?: never;
         head?: never;
         patch: operations["slots_update"];
+        trace?: never;
+    };
+    "/api/v1/slots/{slot_id}/registrations/{registration_id}/{action}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["slot_registrations_manager_action"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/api/v1/slots/{slot_id}/registrations/register": {
@@ -249,6 +889,9 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         ApiError: {
+            type: string;
+            title: string;
+            status: number;
             code: string;
             detail?: string;
             errors?: unknown;
@@ -257,12 +900,45 @@ export interface components {
             error_codes?: string[];
             blocked_event_ids?: string[];
         };
+        ApiToken: {
+            /** Format: uuid */
+            readonly api_token_id: string;
+            name: string;
+            token_prefix: string;
+            scopes?: unknown;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            last_used_at?: string | null;
+            /** Format: date-time */
+            expires_at?: string | null;
+            /** Format: date-time */
+            revoked_at?: string | null;
+            readonly is_active: boolean;
+        };
+        ApiTokenCreate: {
+            name: string;
+            scopes?: components["schemas"]["ScopesEnum"][];
+            expires_in_days?: components["schemas"]["ExpiresInDaysEnum"] | components["schemas"]["BlankEnum"];
+        };
+        ApiTokenCreateResponse: {
+            api_token: components["schemas"]["ApiToken"];
+            token_value: string;
+        };
+        /**
+         * @description * `confirm` - confirm
+         *     * `reject` - reject
+         *     * `cancel` - cancel
+         * @enum {string}
+         */
+        AvailableActionsEnum: "confirm" | "reject" | "cancel";
         /** @enum {unknown} */
         BlankEnum: "";
         Bookmark: {
             /** Format: uuid */
             readonly bookmark_id: string;
             readonly calendar: components["schemas"]["Calendar"];
+            is_favorite?: boolean;
             /** Format: date-time */
             readonly created_at: string;
         };
@@ -276,14 +952,55 @@ export interface components {
             visibility?: components["schemas"]["VisibilityEnum"];
             /** Format: uri */
             remote_url?: string | null;
+            /** @description Wie oft der Remote-Kalender abgerufen wird (in Minuten). Null = deaktiviert */
+            fetch_frequency?: number | null;
+            /**
+             * Format: date-time
+             * @description Zeitpunkt des letzten Abrufversuchs
+             */
+            last_fetch_attempt?: string | null;
+            /**
+             * Format: date-time
+             * @description Zeitpunkt des letzten erfolgreichen Abrufs
+             */
+            last_fetch_success?: string | null;
             /** Format: uuid */
             readonly organization_id: string;
+            readonly organization_name: string | null;
+            readonly organization_slug: string | null;
+            readonly organization_join_url: string | null;
             readonly owner_username: string | null;
             readonly manager_usernames: string[];
+            readonly color: string;
+            readonly is_public: boolean;
+            readonly user_can_view: boolean;
+            readonly is_bookmarked: boolean;
+            readonly is_favorite: boolean;
+            readonly is_primary: boolean;
+            readonly user_is_manager: boolean;
+            readonly user_is_org_member: boolean;
+            readonly user_is_owner: boolean;
+            readonly share_url: string;
+            readonly qr_url: string;
+            readonly ics_feed_url: string;
+            readonly ics_qr_url: string;
+            readonly obfuscated_ics_url: string | null;
+            readonly can_regenerate_ics_token: boolean;
+            /** Format: uuid */
+            readonly cover_asset_id: string | null;
+            readonly cover_url: string | null;
+            /** Format: uuid */
+            readonly icon_asset_id: string | null;
+            readonly icon_url: string | null;
             /** Format: date-time */
             readonly date_created: string;
             /** Format: date-time */
             readonly date_modified: string;
+        };
+        CalendarAppSlotSummary: {
+            total: number;
+            open: number | null;
+            confirmed: number;
         };
         CalendarDeleteBlocked: {
             code: string;
@@ -305,18 +1022,71 @@ export interface components {
             visibility?: components["schemas"]["VisibilityEnum"];
             /** Format: uri */
             remote_url?: string | null;
+            /** @description Wie oft der Remote-Kalender abgerufen wird (in Minuten). Null = deaktiviert */
+            fetch_frequency?: number | null;
+            /**
+             * Format: date-time
+             * @description Zeitpunkt des letzten Abrufversuchs
+             */
+            last_fetch_attempt?: string | null;
+            /**
+             * Format: date-time
+             * @description Zeitpunkt des letzten erfolgreichen Abrufs
+             */
+            last_fetch_success?: string | null;
             /** Format: uuid */
             readonly organization_id: string;
+            readonly organization_name: string | null;
+            readonly organization_slug: string | null;
+            readonly organization_join_url: string | null;
             readonly owner_username: string | null;
             readonly manager_usernames: string[];
+            readonly color: string;
+            readonly is_public: boolean;
+            readonly user_can_view: boolean;
+            readonly is_bookmarked: boolean;
+            readonly is_favorite: boolean;
+            readonly is_primary: boolean;
+            readonly user_is_manager: boolean;
+            readonly user_is_org_member: boolean;
+            readonly user_is_owner: boolean;
+            readonly share_url: string;
+            readonly qr_url: string;
+            readonly ics_feed_url: string;
+            readonly ics_qr_url: string;
+            readonly obfuscated_ics_url: string | null;
+            readonly can_regenerate_ics_token: boolean;
+            /** Format: uuid */
+            readonly cover_asset_id: string | null;
+            readonly cover_url: string | null;
+            /** Format: uuid */
+            readonly icon_asset_id: string | null;
+            readonly icon_url: string | null;
             /** Format: date-time */
             readonly date_created: string;
             /** Format: date-time */
             readonly date_modified: string;
             upcoming_events?: components["schemas"]["Event"][];
         };
-        CalendarSuccess: {
-            code: string;
+        CalendarIcsImport: {
+            success: boolean;
+            message: string;
+            imported_count: number;
+            skipped_count: number;
+            errors: string[];
+            calendar: components["schemas"]["Calendar"];
+        };
+        CalendarIcsImportRequest: {
+            /** Format: uri */
+            ics_file: string;
+        };
+        CalendarIcsToken: {
+            calendar: components["schemas"]["Calendar"];
+        };
+        CalendarRemoteRefresh: {
+            success: boolean;
+            message: string;
+            count: number;
             calendar: components["schemas"]["Calendar"];
         };
         CalendarWrite: {
@@ -328,9 +1098,80 @@ export interface components {
             /** Format: uuid */
             org_id?: string | null;
             manager_usernames?: string[];
+            /** Format: uuid */
+            cover_asset_id?: string | null;
+            /** Format: uuid */
+            icon_asset_id?: string | null;
         };
-        CodeOnlySuccess: {
+        CompositionDefinition: {
+            definition: string;
+        };
+        CompositionDiagnostic: {
             code: string;
+            line: number;
+            column: number;
+            context?: {
+                [key: string]: unknown;
+            };
+        };
+        CompositionPreviewEntry: {
+            /** Format: uuid */
+            event_id: string;
+            title: string;
+            start: string;
+            end: string;
+            all_day: boolean;
+            source_calendar: {
+                [key: string]: unknown;
+            };
+            source_calendars: {
+                [key: string]: unknown;
+            }[];
+        };
+        CompositionPreviewResponse: {
+            count: number;
+            returned_count: number;
+            truncated: boolean;
+            entries: components["schemas"]["CompositionPreviewEntry"][];
+            source_statuses: {
+                [key: string]: unknown;
+            }[];
+        };
+        CompositionResponse: {
+            /** Format: uuid */
+            composition_id: string | null;
+            revision: number;
+            definition: string;
+            active: boolean;
+            suspension_code: string;
+            /** Format: date-time */
+            date_modified: string | null;
+            added_count?: number;
+            removed_count?: number;
+        };
+        CompositionSourceCalendar: {
+            calendar: components["schemas"]["Calendar"];
+            relationship_types: string[];
+            selectable: boolean;
+            reason_code: string | null;
+        };
+        CompositionSourceCalendarPage: {
+            count: number;
+            /** Format: uri */
+            next: string | null;
+            /** Format: uri */
+            previous: string | null;
+            results: components["schemas"]["CompositionSourceCalendar"][];
+        };
+        CompositionValidationResponse: {
+            valid: boolean;
+            normalized_definition: string | null;
+            diagnostics: components["schemas"]["CompositionDiagnostic"][];
+            unresolved_ics_urls: string[];
+        };
+        CompositionWrite: {
+            definition: string;
+            expected_revision: number;
         };
         /**
          * @description * `A` - Automatische Bestätigung
@@ -338,6 +1179,12 @@ export interface components {
          * @enum {string}
          */
         ConfirmationTypeEnum: "A" | "C";
+        /**
+         * @description * `0` - 0
+         *     * `1` - 1
+         * @enum {integer}
+         */
+        EndFoldEnum: 0 | 1;
         Event: {
             /** Format: uuid */
             readonly event_id: string;
@@ -359,33 +1206,43 @@ export interface components {
             /** Adresse/Ort */
             location?: string | null;
             /**
-             * Datum
-             * Format: date
+             * Ortsname
+             * @description Name des Ortes aus Google Maps
              */
-            start_date?: string | null;
+            location_name?: string | null;
             /**
-             * Enddatum
-             * Format: date
+             * Vollständige Adresse
+             * @description Formatierte Adresse aus Google Maps
              */
-            end_date?: string | null;
-            /** Format: date-time */
-            start?: string | null;
+            location_address?: string | null;
             /**
-             * Ende
-             * Format: date-time
+             * Breitengrad
+             * Format: decimal
              */
-            end?: string | null;
+            location_lat?: string | null;
+            /**
+             * Längengrad
+             * Format: decimal
+             */
+            location_lng?: string | null;
+            /** @description Google Places ID für zukünftige API-Aufrufe */
+            location_place_id?: string | null;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            readonly start: string;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            readonly end: string;
+            readonly tzid: string | null;
             /** Wiederholungsregel */
             rrule?: string | null;
             /** Teilnehmerverwaltung aktivieren */
             slots_enabled?: boolean;
             /** Wiederholungen aktivieren */
             recurrences_enabled?: boolean;
-            /**
-             * Format: int64
-             * @description SEQUENCE aus ICS für Update-Erkennung
-             */
+            /** @description SEQUENCE aus ICS für Update-Erkennung */
             sequence?: number;
+            /** Format: uuid */
+            readonly cover_asset_id: string | null;
+            readonly cover_url: string | null;
         };
         EventDeleteBlocked: {
             code: string;
@@ -396,6 +1253,117 @@ export interface components {
             blocked_event_ids?: string[];
             error_code?: string | null;
             error_codes?: string[];
+        };
+        EventFeed: {
+            /** Format: uuid */
+            event_id: string;
+            /** Format: uuid */
+            calendar_id: string;
+            calendar_title: string;
+            calendar_slug: string | null;
+            calendar_color: string;
+            /** Format: uuid */
+            organization_id: string | null;
+            organization_name: string | null;
+            organization_slug: string | null;
+            summary: string;
+            description?: string | null;
+            location?: string | null;
+            location_name?: string | null;
+            location_address?: string | null;
+            /** Format: decimal */
+            location_lat?: string | null;
+            /** Format: decimal */
+            location_lng?: string | null;
+            location_place_id?: string | null;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            readonly start: string;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            readonly end: string;
+            tzid?: string | null;
+            slots_enabled: boolean;
+            recurrences_enabled: boolean;
+            /** Format: uuid */
+            master_event_id?: string | null;
+            slave_type?: string | null;
+            rrule?: string | null;
+            user_can_edit: boolean;
+            slot_summary: components["schemas"]["CalendarAppSlotSummary"];
+            slot_generation?: components["schemas"]["SlotGenerationStatus"];
+            /** Format: uuid */
+            registration_id?: string;
+            registration_status?: components["schemas"]["RegistrationStatusEnum"];
+            registration_slot_resource?: string;
+            /** Format: date-time */
+            registration_slot_start?: string;
+            /** Format: date-time */
+            registration_slot_end?: string;
+        };
+        EventFeedDetail: {
+            /** Format: uuid */
+            event_id: string;
+            /** Format: uuid */
+            calendar_id: string;
+            calendar_title: string;
+            calendar_slug: string | null;
+            calendar_color: string;
+            /** Format: uuid */
+            organization_id: string | null;
+            organization_name: string | null;
+            organization_slug: string | null;
+            summary: string;
+            description?: string | null;
+            location?: string | null;
+            location_name?: string | null;
+            location_address?: string | null;
+            /** Format: decimal */
+            location_lat?: string | null;
+            /** Format: decimal */
+            location_lng?: string | null;
+            location_place_id?: string | null;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            readonly start: string;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            readonly end: string;
+            tzid?: string | null;
+            slots_enabled: boolean;
+            recurrences_enabled: boolean;
+            /** Format: uuid */
+            master_event_id?: string | null;
+            slave_type?: string | null;
+            rrule?: string | null;
+            user_can_edit: boolean;
+            slot_summary: components["schemas"]["CalendarAppSlotSummary"];
+            slot_generation: components["schemas"]["SlotGenerationStatus"];
+            /** Format: uuid */
+            registration_id?: string;
+            registration_status?: components["schemas"]["RegistrationStatusEnum"];
+            registration_slot_resource?: string;
+            /** Format: date-time */
+            registration_slot_start?: string;
+            /** Format: date-time */
+            registration_slot_end?: string;
+        };
+        EventMaterialize: {
+            created_or_updated_count: number;
+            occurrence_count: number;
+            results: components["schemas"]["EventFeed"][];
+        };
+        EventOccurrencesDelete: {
+            deleted: string[];
+            kept: string[];
+            deleted_count: number;
+            kept_count: number;
+        };
+        EventOccurrencesList: {
+            count: number;
+            results: components["schemas"]["EventFeed"][];
+        };
+        EventRegistrationCancellation: {
+            cancelled_registration_count: number;
+        };
+        EventRegistrationSummary: {
+            active_registration_count: number;
         };
         EventSlot: {
             /** Format: uuid */
@@ -413,7 +1381,6 @@ export interface components {
             end: string;
             /**
              * Maximale Teilnehmer
-             * Format: int64
              * @description Keine Obergrenze gewünscht? Feld leer lassen
              */
             max_attendees?: number | null;
@@ -441,8 +1408,15 @@ export interface components {
              */
             show_attendees?: boolean;
             readonly confirmed_attendees: number;
+            readonly pending_attendees: number;
             readonly open_seats: number | null;
             readonly has_free_seats: boolean;
+            readonly user_registration_status: string | null;
+            readonly can_register: boolean;
+            readonly can_waitlist: boolean;
+            readonly can_withdraw: boolean;
+            readonly available_action: string | null;
+            readonly manager_registrations: components["schemas"]["ManagerRegistration"][] | null;
         };
         EventSlotWrite: {
             /**
@@ -462,7 +1436,6 @@ export interface components {
             end: string;
             /**
              * Maximale Teilnehmer
-             * Format: int64
              * @description Keine Obergrenze gewünscht? Feld leer lassen
              */
             max_attendees?: number | null;
@@ -490,6 +1463,9 @@ export interface components {
              */
             show_attendees?: boolean;
         };
+        EventSlotsDeleteAllResponse: {
+            deleted_count: number;
+        };
         EventWrite: {
             /** Titel für den Event */
             summary?: string;
@@ -498,25 +1474,38 @@ export interface components {
             /** Adresse/Ort */
             location?: string | null;
             /**
-             * Datum
-             * Format: date
+             * Ortsname
+             * @description Name des Ortes aus Google Maps
              */
-            start_date?: string | null;
+            location_name?: string | null;
             /**
-             * Enddatum
-             * Format: date
+             * Vollständige Adresse
+             * @description Formatierte Adresse aus Google Maps
              */
-            end_date?: string | null;
+            location_address?: string | null;
             /**
-             * Format: date-time
-             * @description ISO 8601 date-time. Supported inputs: timezone-naive values (interpreted in the authenticated user's timezone, fallback UTC), UTC values with a trailing 'Z', or values with an explicit UTC offset (for example +01:00 or -05:00).
+             * Breitengrad
+             * Format: decimal
              */
-            start?: string | null;
+            location_lat?: string | null;
             /**
-             * Format: date-time
-             * @description ISO 8601 date-time. Supported inputs: timezone-naive values (interpreted in the authenticated user's timezone, fallback UTC), UTC values with a trailing 'Z', or values with an explicit UTC offset (for example +01:00 or -05:00).
+             * Längengrad
+             * Format: decimal
              */
-            end?: string | null;
+            location_lng?: string | null;
+            /** @description Google Places ID für zukünftige API-Aufrufe */
+            location_place_id?: string | null;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            start: string;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            end: string;
+            /**
+             * Event-Zeitzone
+             * @description IANA-Zeitzone für die Wall-Clock-Semantik von Serienterminen
+             */
+            tzid?: string | null;
+            start_fold?: components["schemas"]["StartFoldEnum"];
+            end_fold?: components["schemas"]["EndFoldEnum"];
             /** Wiederholungsregel */
             rrule?: string | null;
             /** Teilnehmerverwaltung aktivieren */
@@ -525,20 +1514,107 @@ export interface components {
             recurrences_enabled?: boolean;
             /** @default false */
             materialize: boolean;
+            recurrence_occurrence_action?: components["schemas"]["RecurrenceOccurrenceActionEnum"];
+            /** Format: uuid */
+            cover_asset_id?: string | null;
+        };
+        /**
+         * @description * `` -
+         *     * `30` - 30
+         *     * `90` - 90
+         *     * `365` - 365
+         * @enum {string}
+         */
+        ExpiresInDaysEnum: "30" | "90" | "365";
+        /**
+         * @description * `FixedDurationMaxAttSlotGenerator` - FixedDurationMaxAttSlotGenerator
+         * @enum {string}
+         */
+        GeneratorEnum: "FixedDurationMaxAttSlotGenerator";
+        IcsSourceRequest: {
+            /** Format: uri */
+            url: string;
+        };
+        IcsSourceResponse: {
+            /** Format: uuid */
+            calendar_id: string;
+            title: string;
+            sync_status: components["schemas"]["SyncStatusEnum"];
+            source: string;
+        };
+        Invitation: {
+            /** Format: uuid */
+            readonly invitation_id: string;
+            readonly email: string;
+            /** Format: date-time */
+            readonly created: string;
+            readonly action_permissions: {
+                [key: string]: boolean;
+            };
+        };
+        InvitationBatchCreate: {
+            emails: string;
+        };
+        InvitationBatchResponse: {
+            invitations: components["schemas"]["Invitation"][];
+            accepted_emails: string[];
+            invalid_emails: string[];
         };
         /**
          * @description * `de` - Deutsch
          *     * `en` - English
          * @enum {string}
          */
-        LanguageEnum: "de" | "en";
+        Language1afEnum: "de" | "en";
+        LocationDetails: {
+            place_id: string;
+            name: string;
+            formatted_address: string;
+            /** Format: decimal */
+            latitude: string;
+            /** Format: decimal */
+            longitude: string;
+            /** Format: uri */
+            google_maps_url?: string;
+            types?: string[];
+        };
+        LocationSuggestion: {
+            place_id: string;
+            description: string;
+            main_text: string;
+            secondary_text: string;
+        };
+        ManagerRegistration: {
+            /** Format: uuid */
+            registration_id: string;
+            attendee_name: string;
+            status: components["schemas"]["StatusEnum"];
+            /** Format: date-time */
+            created_date: string;
+            available_actions: components["schemas"]["AvailableActionsEnum"][];
+        };
+        ManagerRegistrationCreate: {
+            /** Format: uuid */
+            event_slot_id: string;
+            attendee_username?: string;
+            attendee_name?: string;
+            /** @default CONFIRMED */
+            status: components["schemas"]["StatusEnum"];
+        };
         Membership: {
             /** Format: uuid */
             readonly membership_id: string;
             readonly username: string;
+            readonly display_name: string;
             role?: components["schemas"]["RoleEnum"];
             /** Format: date-time */
             readonly created: string;
+            readonly action_permissions: {
+                [key: string]: boolean;
+            };
+        };
+        MembershipRoleUpdate: {
+            membership: components["schemas"]["Membership"];
         };
         /** @enum {unknown} */
         NullEnum: null;
@@ -549,12 +1625,150 @@ export interface components {
             name: string;
             /** @description URL-freundlicher Name für die Organisation (wird automatisch generiert) */
             slug: string;
+            /**
+             * Teasertext
+             * @description Ein kurzer Text für kompakte Darstellungen der Organisation (maximal 50 Zeichen)
+             */
+            teaser_text?: string | null;
             /** @description Die Beschreibung der Organisation */
             description?: string | null;
+            /**
+             * Sprache
+             * @description Bevorzugte Sprache für die Organisation
+             *
+             *     * `de` - Deutsch
+             *     * `en` - English
+             */
+            language?: components["schemas"]["Language1afEnum"];
+            /**
+             * Beitrittszugang
+             * @description Legt fest, ob ein Einladungscode für den Beitritt erforderlich ist.
+             *
+             *     * `INVITATION_ONLY` - Nur mit Einladung
+             *     * `FREE_TO_JOIN` - Freier Beitritt
+             */
+            join_policy?: components["schemas"]["OrganizationJoinPolicyEnum"];
+            readonly logo_url: string | null;
+            readonly icon_url: string | null;
+            readonly calendar_background_url: string | null;
+            /** Format: uuid */
+            readonly logo_asset_id: string | null;
+            /** Format: uuid */
+            readonly icon_asset_id: string | null;
+            /** Format: uuid */
+            readonly calendar_background_asset_id: string | null;
+            readonly member_count: number;
+            /** Format: uuid */
+            readonly default_calendar_id: string | null;
+            readonly default_calendar_title: string | null;
             readonly code: string | null;
             /** @description Verifizierte Organisationen dürfen Mitglieder per E-Mail einladen. Nur von Administratoren verwaltbar. */
             trusted?: boolean;
+            /** @description Ist die Discourse-Integration für diese Organisation aktiviert? */
+            discourse_enabled?: boolean;
+            /** @description Die ID der Discourse-Gruppe für diese Organisation */
+            discourse_group_id?: number | null;
+            /** @description Der tatsächliche Name der Discourse-Gruppe (kann von Discourse geändert worden sein) */
+            discourse_group_name?: string | null;
+            /** @description Die ID der Discourse-Kategorie für diese Organisation */
+            discourse_category_id?: number | null;
+            /** @description Der tatsächliche Slug der Discourse-Kategorie (kann von Discourse geändert worden sein) */
+            discourse_category_slug?: string | null;
+            readonly discourse_group_url: string;
+            readonly discourse_category_url: string;
+            readonly urls: {
+                [key: string]: unknown;
+            };
+            readonly action_permissions: {
+                [key: string]: unknown;
+            };
         };
+        OrganizationAsset: {
+            /** Format: uuid */
+            readonly asset_id: string;
+            /** Format: uuid */
+            readonly organization_id: string;
+            type?: components["schemas"]["TypeEnum"];
+            label?: string | null;
+            original_filename: string;
+            content_type: string;
+            byte_size: number;
+            readonly width: number | null;
+            readonly height: number | null;
+            metadata?: unknown;
+            checksum_sha256: string;
+            readonly checksum: string;
+            readonly url: string | null;
+            readonly preview_url: string | null;
+            readonly applicable_uses: string[];
+            readonly references: {
+                [key: string]: unknown;
+            }[];
+            readonly usage: {
+                [key: string]: unknown;
+            }[];
+            readonly created_by: {
+                [key: string]: unknown;
+            } | null;
+            storage_status?: components["schemas"]["StorageStatusEnum"];
+            /** Format: date-time */
+            storage_checked_at?: string | null;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            readonly updated_at: string;
+        };
+        OrganizationAssetList: {
+            count: number;
+            limit: number;
+            remaining: number;
+            results: components["schemas"]["OrganizationAsset"][];
+        };
+        OrganizationAssetUpload: {
+            type: components["schemas"]["TypeEnum"];
+            /** Format: uri */
+            file: string;
+            label?: string;
+        };
+        OrganizationAssetUploadResponse: {
+            asset: components["schemas"]["OrganizationAsset"];
+            warnings?: {
+                [key: string]: unknown;
+            }[];
+        };
+        OrganizationCreate: {
+            name: string;
+            teaser_text?: string | null;
+            description?: string | null;
+        };
+        OrganizationDiscourseActionResponse: {
+            organization: components["schemas"]["Organization"];
+            message: string;
+        };
+        OrganizationJoin: {
+            code: string;
+        };
+        /**
+         * @description * `INVITATION_ONLY` - Nur mit Einladung
+         *     * `FREE_TO_JOIN` - Freier Beitritt
+         * @enum {string}
+         */
+        OrganizationJoinPolicyEnum: "INVITATION_ONLY" | "FREE_TO_JOIN";
+        OrganizationJoinResponse: {
+            organization: components["schemas"]["Organization"];
+        };
+        /**
+         * @description * `INVITATION_ONLY` - INVITATION_ONLY
+         *     * `FREE_TO_JOIN` - FREE_TO_JOIN
+         * @enum {string}
+         */
+        OrganizationWriteJoinPolicyEnum: "INVITATION_ONLY" | "FREE_TO_JOIN";
+        /**
+         * @description * `de` - de
+         *     * `en` - en
+         * @enum {string}
+         */
+        OrganizationWriteLanguageEnum: "de" | "en";
         PaginatedBookmarkList: {
             results: components["schemas"]["Bookmark"][];
             count: number;
@@ -565,6 +1779,22 @@ export interface components {
         };
         PaginatedCalendarList: {
             results: components["schemas"]["Calendar"][];
+            count: number;
+            /** Format: uri */
+            next: string | null;
+            /** Format: uri */
+            previous: string | null;
+        };
+        PaginatedEventFeed: {
+            count: number;
+            /** Format: uri */
+            next: string | null;
+            /** Format: uri */
+            previous: string | null;
+            results: components["schemas"]["EventFeed"][];
+        };
+        PaginatedEventFeedList: {
+            results: components["schemas"]["EventFeed"][];
             count: number;
             /** Format: uri */
             next: string | null;
@@ -587,6 +1817,14 @@ export interface components {
             /** Format: uri */
             previous: string | null;
         };
+        PaginatedInvitation: {
+            results: components["schemas"]["Invitation"][];
+            count: number;
+            /** Format: uri */
+            next: string | null;
+            /** Format: uri */
+            previous: string | null;
+        };
         PaginatedMembershipList: {
             results: components["schemas"]["Membership"][];
             count: number;
@@ -603,6 +1841,38 @@ export interface components {
             /** Format: uri */
             previous: string | null;
         };
+        PaginatedRegistrationAuditEntry: {
+            results: components["schemas"]["RegistrationAuditEntry"][];
+            count: number;
+            /** Format: uri */
+            next: string | null;
+            /** Format: uri */
+            previous: string | null;
+        };
+        PaginatedRegistrationCandidate: {
+            results: components["schemas"]["RegistrationCandidate"][];
+            count: number;
+            /** Format: uri */
+            next: string | null;
+            /** Format: uri */
+            previous: string | null;
+        };
+        PaginatedRegistrationHistory: {
+            results: components["schemas"]["RegistrationHistory"][];
+            count: number;
+            /** Format: uri */
+            next: string | null;
+            /** Format: uri */
+            previous: string | null;
+        };
+        PaginatedSlotGeneratorConfig: {
+            results: components["schemas"]["SlotGeneratorConfig"][];
+            count: number;
+            /** Format: uri */
+            next: string | null;
+            /** Format: uri */
+            previous: string | null;
+        };
         PatchedCalendarWrite: {
             title?: string;
             description?: string | null;
@@ -612,6 +1882,10 @@ export interface components {
             /** Format: uuid */
             org_id?: string | null;
             manager_usernames?: string[];
+            /** Format: uuid */
+            cover_asset_id?: string | null;
+            /** Format: uuid */
+            icon_asset_id?: string | null;
         };
         PatchedEventSlotWrite: {
             /**
@@ -631,7 +1905,6 @@ export interface components {
             end?: string;
             /**
              * Maximale Teilnehmer
-             * Format: int64
              * @description Keine Obergrenze gewünscht? Feld leer lassen
              */
             max_attendees?: number | null;
@@ -667,25 +1940,38 @@ export interface components {
             /** Adresse/Ort */
             location?: string | null;
             /**
-             * Datum
-             * Format: date
+             * Ortsname
+             * @description Name des Ortes aus Google Maps
              */
-            start_date?: string | null;
+            location_name?: string | null;
             /**
-             * Enddatum
-             * Format: date
+             * Vollständige Adresse
+             * @description Formatierte Adresse aus Google Maps
              */
-            end_date?: string | null;
+            location_address?: string | null;
             /**
-             * Format: date-time
-             * @description ISO 8601 date-time. Supported inputs: timezone-naive values (interpreted in the authenticated user's timezone, fallback UTC), UTC values with a trailing 'Z', or values with an explicit UTC offset (for example +01:00 or -05:00).
+             * Breitengrad
+             * Format: decimal
              */
-            start?: string | null;
+            location_lat?: string | null;
             /**
-             * Format: date-time
-             * @description ISO 8601 date-time. Supported inputs: timezone-naive values (interpreted in the authenticated user's timezone, fallback UTC), UTC values with a trailing 'Z', or values with an explicit UTC offset (for example +01:00 or -05:00).
+             * Längengrad
+             * Format: decimal
              */
-            end?: string | null;
+            location_lng?: string | null;
+            /** @description Google Places ID für zukünftige API-Aufrufe */
+            location_place_id?: string | null;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            start?: string;
+            /** @description ISO 8601 date for an all-day event or ISO 8601 date-time for a timed event. The start and end value types must match; end is exclusive. Timed responses use UTC with a trailing Z; naive date-time inputs are interpreted using tzid, then the authenticated user's timezone, then UTC. */
+            end?: string;
+            /**
+             * Event-Zeitzone
+             * @description IANA-Zeitzone für die Wall-Clock-Semantik von Serienterminen
+             */
+            tzid?: string | null;
+            start_fold?: components["schemas"]["StartFoldEnum"];
+            end_fold?: components["schemas"]["EndFoldEnum"];
             /** Wiederholungsregel */
             rrule?: string | null;
             /** Teilnehmerverwaltung aktivieren */
@@ -694,10 +1980,96 @@ export interface components {
             recurrences_enabled?: boolean;
             /** @default false */
             materialize: boolean;
+            recurrence_occurrence_action?: components["schemas"]["RecurrenceOccurrenceActionEnum"];
+            /** Format: uuid */
+            cover_asset_id?: string | null;
         };
+        PatchedMembershipWrite: {
+            role?: components["schemas"]["RoleEnum"];
+        };
+        PatchedOrganizationAssetRename: {
+            label?: string | null;
+        };
+        PatchedOrganizationWrite: {
+            name?: string;
+            teaser_text?: string | null;
+            description?: string | null;
+            language?: components["schemas"]["OrganizationWriteLanguageEnum"];
+            join_policy?: components["schemas"]["OrganizationWriteJoinPolicyEnum"];
+            /** Format: uuid */
+            default_calendar_id?: string | null;
+            /** Format: uuid */
+            logo_asset_id?: string | null;
+            /** Format: uuid */
+            icon_asset_id?: string | null;
+            /** Format: uuid */
+            calendar_background_asset_id?: string | null;
+        };
+        PatchedSlotGeneratorConfig: {
+            readonly id?: string;
+            /** @default FixedDurationMaxAttSlotGenerator */
+            generator: components["schemas"]["GeneratorEnum"];
+            name?: string;
+            duration?: number;
+            max_attendees?: number | null;
+            /** @default 12 */
+            days_in_advance: number;
+            /** @default false */
+            allow_multiple_slots: boolean;
+            confirmation_type?: components["schemas"]["ConfirmationTypeEnum"];
+            /** @default false */
+            allow_multiple_requests: boolean;
+            /** @default false */
+            show_attendees: boolean;
+        };
+        PatchedUserProfileWrite: {
+            /** Vorname */
+            first_name?: string;
+            /** Nachname */
+            last_name?: string;
+            /** Zeitzone */
+            timezone?: components["schemas"]["TimezoneEnum"];
+            /**
+             * Sprache
+             * @description Bevorzugte Sprache für die Benutzeroberfläche
+             *
+             *     * `de` - Deutsch
+             *     * `en` - English
+             */
+            language?: components["schemas"]["Language1afEnum"];
+        };
+        /**
+         * @description * `keep` - keep
+         *     * `delete` - delete
+         * @enum {string}
+         */
+        RecurrenceOccurrenceActionEnum: "keep" | "delete";
         Registration: {
             /** Format: uuid */
             readonly registration_id: string;
+            status: components["schemas"]["StatusEnum"];
+            /** Format: date-time */
+            readonly created_date: string;
+            readonly slot: components["schemas"]["RegistrationSlotSummary"];
+        };
+        RegistrationAuditEntry: {
+            readonly audit_id: number;
+            /** Format: date-time */
+            readonly timestamp: string;
+            readonly action: string;
+            readonly actor_name: string;
+            readonly participant_name: string;
+            readonly slot_resource: string;
+            readonly changes: unknown;
+        };
+        RegistrationCandidate: {
+            readonly username: string;
+            readonly display_name: string;
+        };
+        RegistrationHistory: {
+            /** Format: uuid */
+            readonly registration_id: string;
+            readonly attendee_name: string;
             status: components["schemas"]["StatusEnum"];
             /** Format: date-time */
             readonly created_date: string;
@@ -719,6 +2091,16 @@ export interface components {
             end: string;
         };
         /**
+         * @description * `APPLIED` - Angefragt
+         *     * `CONFIRMED` - Bestätigt
+         *     * `REJECTED` - Abgelehnt
+         *     * `WAITLIST` - Warteliste
+         *     * `WITHDRAWN` - Zurückgezogen
+         *     * `CANCELLED` - Abgesagt
+         * @enum {string}
+         */
+        RegistrationStatusEnum: "APPLIED" | "CONFIRMED" | "REJECTED" | "WAITLIST" | "WITHDRAWN" | "CANCELLED";
+        /**
          * @description * `O` - Admin
          *     * `M` - Manager
          *     * `U` - Benutzer
@@ -726,11 +2108,56 @@ export interface components {
          */
         RoleEnum: "O" | "M" | "U";
         /**
+         * @description * `profile:read` - profile:read
+         *     * `profile:write` - profile:write
+         *     * `calendars:read` - calendars:read
+         *     * `calendars:write` - calendars:write
+         *     * `events:read` - events:read
+         *     * `events:write` - events:write
+         *     * `slots:read` - slots:read
+         *     * `slots:write` - slots:write
+         *     * `organizations:read` - organizations:read
+         * @enum {string}
+         */
+        ScopesEnum: "profile:read" | "profile:write" | "calendars:read" | "calendars:write" | "events:read" | "events:write" | "slots:read" | "slots:write" | "organizations:read";
+        /**
          * @description * `S` - Zeitslot
          *     * `O` - Serientermin
          * @enum {string}
          */
         SlaveTypeEnum: "S" | "O";
+        SlotGenerationStatus: {
+            has_generators: boolean;
+            /** Format: date-time */
+            next_eligible_at: string | null;
+            pending_generator_count: number;
+        };
+        SlotGeneratorConfig: {
+            readonly id: string;
+            /** @default FixedDurationMaxAttSlotGenerator */
+            generator: components["schemas"]["GeneratorEnum"];
+            name: string;
+            duration: number;
+            max_attendees?: number | null;
+            /** @default 12 */
+            days_in_advance: number;
+            /** @default false */
+            allow_multiple_slots: boolean;
+            confirmation_type: components["schemas"]["ConfirmationTypeEnum"];
+            /** @default false */
+            allow_multiple_requests: boolean;
+            /** @default false */
+            show_attendees: boolean;
+        };
+        SlotGeneratorRunResponse: {
+            created_count: number;
+        };
+        /**
+         * @description * `0` - 0
+         *     * `1` - 1
+         * @enum {integer}
+         */
+        StartFoldEnum: 0 | 1;
         /**
          * @description * `APPLIED` - Angefragt
          *     * `CONFIRMED` - Bestätigt
@@ -741,6 +2168,19 @@ export interface components {
          * @enum {string}
          */
         StatusEnum: "APPLIED" | "CONFIRMED" | "REJECTED" | "WAITLIST" | "WITHDRAWN" | "CANCELLED";
+        /**
+         * @description * `available` - Available
+         *     * `missing` - Missing
+         *     * `unknown` - Unknown
+         * @enum {string}
+         */
+        StorageStatusEnum: "available" | "missing" | "unknown";
+        /**
+         * @description * `ready` - ready
+         *     * `failed` - failed
+         * @enum {string}
+         */
+        SyncStatusEnum: "ready" | "failed";
         /**
          * @description * `Africa/Abidjan` - Africa/Abidjan
          *     * `Africa/Accra` - Africa/Accra
@@ -1343,6 +2783,11 @@ export interface components {
          * @enum {string}
          */
         TimezoneEnum: "Africa/Abidjan" | "Africa/Accra" | "Africa/Addis_Ababa" | "Africa/Algiers" | "Africa/Asmara" | "Africa/Asmera" | "Africa/Bamako" | "Africa/Bangui" | "Africa/Banjul" | "Africa/Bissau" | "Africa/Blantyre" | "Africa/Brazzaville" | "Africa/Bujumbura" | "Africa/Cairo" | "Africa/Casablanca" | "Africa/Ceuta" | "Africa/Conakry" | "Africa/Dakar" | "Africa/Dar_es_Salaam" | "Africa/Djibouti" | "Africa/Douala" | "Africa/El_Aaiun" | "Africa/Freetown" | "Africa/Gaborone" | "Africa/Harare" | "Africa/Johannesburg" | "Africa/Juba" | "Africa/Kampala" | "Africa/Khartoum" | "Africa/Kigali" | "Africa/Kinshasa" | "Africa/Lagos" | "Africa/Libreville" | "Africa/Lome" | "Africa/Luanda" | "Africa/Lubumbashi" | "Africa/Lusaka" | "Africa/Malabo" | "Africa/Maputo" | "Africa/Maseru" | "Africa/Mbabane" | "Africa/Mogadishu" | "Africa/Monrovia" | "Africa/Nairobi" | "Africa/Ndjamena" | "Africa/Niamey" | "Africa/Nouakchott" | "Africa/Ouagadougou" | "Africa/Porto-Novo" | "Africa/Sao_Tome" | "Africa/Timbuktu" | "Africa/Tripoli" | "Africa/Tunis" | "Africa/Windhoek" | "America/Adak" | "America/Anchorage" | "America/Anguilla" | "America/Antigua" | "America/Araguaina" | "America/Argentina/Buenos_Aires" | "America/Argentina/Catamarca" | "America/Argentina/ComodRivadavia" | "America/Argentina/Cordoba" | "America/Argentina/Jujuy" | "America/Argentina/La_Rioja" | "America/Argentina/Mendoza" | "America/Argentina/Rio_Gallegos" | "America/Argentina/Salta" | "America/Argentina/San_Juan" | "America/Argentina/San_Luis" | "America/Argentina/Tucuman" | "America/Argentina/Ushuaia" | "America/Aruba" | "America/Asuncion" | "America/Atikokan" | "America/Atka" | "America/Bahia" | "America/Bahia_Banderas" | "America/Barbados" | "America/Belem" | "America/Belize" | "America/Blanc-Sablon" | "America/Boa_Vista" | "America/Bogota" | "America/Boise" | "America/Buenos_Aires" | "America/Cambridge_Bay" | "America/Campo_Grande" | "America/Cancun" | "America/Caracas" | "America/Catamarca" | "America/Cayenne" | "America/Cayman" | "America/Chicago" | "America/Chihuahua" | "America/Ciudad_Juarez" | "America/Coral_Harbour" | "America/Cordoba" | "America/Costa_Rica" | "America/Creston" | "America/Cuiaba" | "America/Curacao" | "America/Danmarkshavn" | "America/Dawson" | "America/Dawson_Creek" | "America/Denver" | "America/Detroit" | "America/Dominica" | "America/Edmonton" | "America/Eirunepe" | "America/El_Salvador" | "America/Ensenada" | "America/Fort_Nelson" | "America/Fort_Wayne" | "America/Fortaleza" | "America/Glace_Bay" | "America/Godthab" | "America/Goose_Bay" | "America/Grand_Turk" | "America/Grenada" | "America/Guadeloupe" | "America/Guatemala" | "America/Guayaquil" | "America/Guyana" | "America/Halifax" | "America/Havana" | "America/Hermosillo" | "America/Indiana/Indianapolis" | "America/Indiana/Knox" | "America/Indiana/Marengo" | "America/Indiana/Petersburg" | "America/Indiana/Tell_City" | "America/Indiana/Vevay" | "America/Indiana/Vincennes" | "America/Indiana/Winamac" | "America/Indianapolis" | "America/Inuvik" | "America/Iqaluit" | "America/Jamaica" | "America/Jujuy" | "America/Juneau" | "America/Kentucky/Louisville" | "America/Kentucky/Monticello" | "America/Knox_IN" | "America/Kralendijk" | "America/La_Paz" | "America/Lima" | "America/Los_Angeles" | "America/Louisville" | "America/Lower_Princes" | "America/Maceio" | "America/Managua" | "America/Manaus" | "America/Marigot" | "America/Martinique" | "America/Matamoros" | "America/Mazatlan" | "America/Mendoza" | "America/Menominee" | "America/Merida" | "America/Metlakatla" | "America/Mexico_City" | "America/Miquelon" | "America/Moncton" | "America/Monterrey" | "America/Montevideo" | "America/Montreal" | "America/Montserrat" | "America/Nassau" | "America/New_York" | "America/Nipigon" | "America/Nome" | "America/Noronha" | "America/North_Dakota/Beulah" | "America/North_Dakota/Center" | "America/North_Dakota/New_Salem" | "America/Nuuk" | "America/Ojinaga" | "America/Panama" | "America/Pangnirtung" | "America/Paramaribo" | "America/Phoenix" | "America/Port-au-Prince" | "America/Port_of_Spain" | "America/Porto_Acre" | "America/Porto_Velho" | "America/Puerto_Rico" | "America/Punta_Arenas" | "America/Rainy_River" | "America/Rankin_Inlet" | "America/Recife" | "America/Regina" | "America/Resolute" | "America/Rio_Branco" | "America/Rosario" | "America/Santa_Isabel" | "America/Santarem" | "America/Santiago" | "America/Santo_Domingo" | "America/Sao_Paulo" | "America/Scoresbysund" | "America/Shiprock" | "America/Sitka" | "America/St_Barthelemy" | "America/St_Johns" | "America/St_Kitts" | "America/St_Lucia" | "America/St_Thomas" | "America/St_Vincent" | "America/Swift_Current" | "America/Tegucigalpa" | "America/Thule" | "America/Thunder_Bay" | "America/Tijuana" | "America/Toronto" | "America/Tortola" | "America/Vancouver" | "America/Virgin" | "America/Whitehorse" | "America/Winnipeg" | "America/Yakutat" | "America/Yellowknife" | "Antarctica/Casey" | "Antarctica/Davis" | "Antarctica/DumontDUrville" | "Antarctica/Macquarie" | "Antarctica/Mawson" | "Antarctica/McMurdo" | "Antarctica/Palmer" | "Antarctica/Rothera" | "Antarctica/South_Pole" | "Antarctica/Syowa" | "Antarctica/Troll" | "Antarctica/Vostok" | "Arctic/Longyearbyen" | "Asia/Aden" | "Asia/Almaty" | "Asia/Amman" | "Asia/Anadyr" | "Asia/Aqtau" | "Asia/Aqtobe" | "Asia/Ashgabat" | "Asia/Ashkhabad" | "Asia/Atyrau" | "Asia/Baghdad" | "Asia/Bahrain" | "Asia/Baku" | "Asia/Bangkok" | "Asia/Barnaul" | "Asia/Beirut" | "Asia/Bishkek" | "Asia/Brunei" | "Asia/Calcutta" | "Asia/Chita" | "Asia/Choibalsan" | "Asia/Chongqing" | "Asia/Chungking" | "Asia/Colombo" | "Asia/Dacca" | "Asia/Damascus" | "Asia/Dhaka" | "Asia/Dili" | "Asia/Dubai" | "Asia/Dushanbe" | "Asia/Famagusta" | "Asia/Gaza" | "Asia/Hanoi" | "Asia/Harbin" | "Asia/Hebron" | "Asia/Ho_Chi_Minh" | "Asia/Hong_Kong" | "Asia/Hovd" | "Asia/Irkutsk" | "Asia/Istanbul" | "Asia/Jakarta" | "Asia/Jayapura" | "Asia/Jerusalem" | "Asia/Kabul" | "Asia/Kamchatka" | "Asia/Karachi" | "Asia/Kashgar" | "Asia/Kathmandu" | "Asia/Katmandu" | "Asia/Khandyga" | "Asia/Kolkata" | "Asia/Krasnoyarsk" | "Asia/Kuala_Lumpur" | "Asia/Kuching" | "Asia/Kuwait" | "Asia/Macao" | "Asia/Macau" | "Asia/Magadan" | "Asia/Makassar" | "Asia/Manila" | "Asia/Muscat" | "Asia/Nicosia" | "Asia/Novokuznetsk" | "Asia/Novosibirsk" | "Asia/Omsk" | "Asia/Oral" | "Asia/Phnom_Penh" | "Asia/Pontianak" | "Asia/Pyongyang" | "Asia/Qatar" | "Asia/Qostanay" | "Asia/Qyzylorda" | "Asia/Rangoon" | "Asia/Riyadh" | "Asia/Saigon" | "Asia/Sakhalin" | "Asia/Samarkand" | "Asia/Seoul" | "Asia/Shanghai" | "Asia/Singapore" | "Asia/Srednekolymsk" | "Asia/Taipei" | "Asia/Tashkent" | "Asia/Tbilisi" | "Asia/Tehran" | "Asia/Tel_Aviv" | "Asia/Thimbu" | "Asia/Thimphu" | "Asia/Tokyo" | "Asia/Tomsk" | "Asia/Ujung_Pandang" | "Asia/Ulaanbaatar" | "Asia/Ulan_Bator" | "Asia/Urumqi" | "Asia/Ust-Nera" | "Asia/Vientiane" | "Asia/Vladivostok" | "Asia/Yakutsk" | "Asia/Yangon" | "Asia/Yekaterinburg" | "Asia/Yerevan" | "Atlantic/Azores" | "Atlantic/Bermuda" | "Atlantic/Canary" | "Atlantic/Cape_Verde" | "Atlantic/Faeroe" | "Atlantic/Faroe" | "Atlantic/Jan_Mayen" | "Atlantic/Madeira" | "Atlantic/Reykjavik" | "Atlantic/South_Georgia" | "Atlantic/St_Helena" | "Atlantic/Stanley" | "Australia/ACT" | "Australia/Adelaide" | "Australia/Brisbane" | "Australia/Broken_Hill" | "Australia/Canberra" | "Australia/Currie" | "Australia/Darwin" | "Australia/Eucla" | "Australia/Hobart" | "Australia/LHI" | "Australia/Lindeman" | "Australia/Lord_Howe" | "Australia/Melbourne" | "Australia/NSW" | "Australia/North" | "Australia/Perth" | "Australia/Queensland" | "Australia/South" | "Australia/Sydney" | "Australia/Tasmania" | "Australia/Victoria" | "Australia/West" | "Australia/Yancowinna" | "Brazil/Acre" | "Brazil/DeNoronha" | "Brazil/East" | "Brazil/West" | "CET" | "CST6CDT" | "Canada/Atlantic" | "Canada/Central" | "Canada/Eastern" | "Canada/Mountain" | "Canada/Newfoundland" | "Canada/Pacific" | "Canada/Saskatchewan" | "Canada/Yukon" | "Chile/Continental" | "Chile/EasterIsland" | "Cuba" | "EET" | "EST" | "EST5EDT" | "Egypt" | "Eire" | "Etc/GMT" | "Etc/GMT+0" | "Etc/GMT+1" | "Etc/GMT+10" | "Etc/GMT+11" | "Etc/GMT+12" | "Etc/GMT+2" | "Etc/GMT+3" | "Etc/GMT+4" | "Etc/GMT+5" | "Etc/GMT+6" | "Etc/GMT+7" | "Etc/GMT+8" | "Etc/GMT+9" | "Etc/GMT-0" | "Etc/GMT-1" | "Etc/GMT-10" | "Etc/GMT-11" | "Etc/GMT-12" | "Etc/GMT-13" | "Etc/GMT-14" | "Etc/GMT-2" | "Etc/GMT-3" | "Etc/GMT-4" | "Etc/GMT-5" | "Etc/GMT-6" | "Etc/GMT-7" | "Etc/GMT-8" | "Etc/GMT-9" | "Etc/GMT0" | "Etc/Greenwich" | "Etc/UCT" | "Etc/UTC" | "Etc/Universal" | "Etc/Zulu" | "Europe/Amsterdam" | "Europe/Andorra" | "Europe/Astrakhan" | "Europe/Athens" | "Europe/Belfast" | "Europe/Belgrade" | "Europe/Berlin" | "Europe/Bratislava" | "Europe/Brussels" | "Europe/Bucharest" | "Europe/Budapest" | "Europe/Busingen" | "Europe/Chisinau" | "Europe/Copenhagen" | "Europe/Dublin" | "Europe/Gibraltar" | "Europe/Guernsey" | "Europe/Helsinki" | "Europe/Isle_of_Man" | "Europe/Istanbul" | "Europe/Jersey" | "Europe/Kaliningrad" | "Europe/Kiev" | "Europe/Kirov" | "Europe/Kyiv" | "Europe/Lisbon" | "Europe/Ljubljana" | "Europe/London" | "Europe/Luxembourg" | "Europe/Madrid" | "Europe/Malta" | "Europe/Mariehamn" | "Europe/Minsk" | "Europe/Monaco" | "Europe/Moscow" | "Europe/Nicosia" | "Europe/Oslo" | "Europe/Paris" | "Europe/Podgorica" | "Europe/Prague" | "Europe/Riga" | "Europe/Rome" | "Europe/Samara" | "Europe/San_Marino" | "Europe/Sarajevo" | "Europe/Saratov" | "Europe/Simferopol" | "Europe/Skopje" | "Europe/Sofia" | "Europe/Stockholm" | "Europe/Tallinn" | "Europe/Tirane" | "Europe/Tiraspol" | "Europe/Ulyanovsk" | "Europe/Uzhgorod" | "Europe/Vaduz" | "Europe/Vatican" | "Europe/Vienna" | "Europe/Vilnius" | "Europe/Volgograd" | "Europe/Warsaw" | "Europe/Zagreb" | "Europe/Zaporozhye" | "Europe/Zurich" | "Factory" | "GB" | "GB-Eire" | "GMT" | "GMT+0" | "GMT-0" | "GMT0" | "Greenwich" | "HST" | "Hongkong" | "Iceland" | "Indian/Antananarivo" | "Indian/Chagos" | "Indian/Christmas" | "Indian/Cocos" | "Indian/Comoro" | "Indian/Kerguelen" | "Indian/Mahe" | "Indian/Maldives" | "Indian/Mauritius" | "Indian/Mayotte" | "Indian/Reunion" | "Iran" | "Israel" | "Jamaica" | "Japan" | "Kwajalein" | "Libya" | "MET" | "MST" | "MST7MDT" | "Mexico/BajaNorte" | "Mexico/BajaSur" | "Mexico/General" | "NZ" | "NZ-CHAT" | "Navajo" | "PRC" | "PST8PDT" | "Pacific/Apia" | "Pacific/Auckland" | "Pacific/Bougainville" | "Pacific/Chatham" | "Pacific/Chuuk" | "Pacific/Easter" | "Pacific/Efate" | "Pacific/Enderbury" | "Pacific/Fakaofo" | "Pacific/Fiji" | "Pacific/Funafuti" | "Pacific/Galapagos" | "Pacific/Gambier" | "Pacific/Guadalcanal" | "Pacific/Guam" | "Pacific/Honolulu" | "Pacific/Johnston" | "Pacific/Kanton" | "Pacific/Kiritimati" | "Pacific/Kosrae" | "Pacific/Kwajalein" | "Pacific/Majuro" | "Pacific/Marquesas" | "Pacific/Midway" | "Pacific/Nauru" | "Pacific/Niue" | "Pacific/Norfolk" | "Pacific/Noumea" | "Pacific/Pago_Pago" | "Pacific/Palau" | "Pacific/Pitcairn" | "Pacific/Pohnpei" | "Pacific/Ponape" | "Pacific/Port_Moresby" | "Pacific/Rarotonga" | "Pacific/Saipan" | "Pacific/Samoa" | "Pacific/Tahiti" | "Pacific/Tarawa" | "Pacific/Tongatapu" | "Pacific/Truk" | "Pacific/Wake" | "Pacific/Wallis" | "Pacific/Yap" | "Poland" | "Portugal" | "ROC" | "ROK" | "Singapore" | "Turkey" | "UCT" | "US/Alaska" | "US/Aleutian" | "US/Arizona" | "US/Central" | "US/East-Indiana" | "US/Eastern" | "US/Hawaii" | "US/Indiana-Starke" | "US/Michigan" | "US/Mountain" | "US/Pacific" | "US/Samoa" | "UTC" | "Universal" | "W-SU" | "WET" | "Zulu";
+        /**
+         * @description * `image` - Image
+         * @enum {string}
+         */
+        TypeEnum: "image";
         UserMe: {
             /** Format: uuid */
             readonly user_id: string;
@@ -1369,7 +2814,19 @@ export interface components {
              *     * `de` - Deutsch
              *     * `en` - English
              */
-            language?: components["schemas"]["LanguageEnum"];
+            language?: components["schemas"]["Language1afEnum"];
+            /**
+             * Einladungscode
+             * @description Persönlicher Einladungscode zum Teilen mit anderen
+             */
+            invitation_code?: string;
+            readonly users_can_invite: boolean;
+            readonly urls: {
+                [key: string]: unknown;
+            };
+            readonly organizations: {
+                [key: string]: unknown;
+            }[];
         };
         /**
          * @description * `ORG` - Org
@@ -1426,8 +2883,11 @@ export interface operations {
     calendars_list: {
         parameters: {
             query?: {
+                /** @description Optional comma-separated calendar UUID filter. */
+                calendar_ids?: string;
+                org?: string;
                 /** @description Filter for calendar list. */
-                scope?: "accessible" | "bookmarked" | "managed";
+                scope?: "accessible" | "bookmarked" | "favorites" | "managed" | "related" | "sidebar";
             };
             header?: never;
             path?: never;
@@ -1481,7 +2941,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CalendarSuccess"];
+                    "application/json": components["schemas"]["Calendar"];
                 };
             };
             400: {
@@ -1587,13 +3047,12 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            200: {
+            /** @description No response body */
+            204: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "application/json": components["schemas"]["CodeOnlySuccess"];
-                };
+                content?: never;
             };
             400: {
                 headers: {
@@ -1659,7 +3118,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CalendarSuccess"];
+                    "application/json": components["schemas"]["Calendar"];
                 };
             };
             400: {
@@ -1817,12 +3276,195 @@ export interface operations {
             };
         };
     };
+    calendar_composition_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompositionResponse"];
+                };
+            };
+        };
+    };
+    calendar_composition_replace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompositionWrite"];
+                "application/x-www-form-urlencoded": components["schemas"]["CompositionWrite"];
+                "multipart/form-data": components["schemas"]["CompositionWrite"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompositionResponse"];
+                };
+            };
+        };
+    };
+    calendar_composition_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    calendar_composition_ics_source_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IcsSourceRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["IcsSourceRequest"];
+                "multipart/form-data": components["schemas"]["IcsSourceRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IcsSourceResponse"];
+                };
+            };
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IcsSourceResponse"];
+                };
+            };
+        };
+    };
+    calendar_composition_preview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompositionDefinition"];
+                "application/x-www-form-urlencoded": components["schemas"]["CompositionDefinition"];
+                "multipart/form-data": components["schemas"]["CompositionDefinition"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompositionPreviewResponse"];
+                };
+            };
+        };
+    };
+    calendar_composition_source_calendars: {
+        parameters: {
+            query?: {
+                exclude_calendar_ids?: string;
+                page?: number;
+                page_size?: number;
+                search?: string;
+            };
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompositionSourceCalendarPage"];
+                };
+            };
+        };
+    };
+    calendar_composition_validate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompositionDefinition"];
+                "application/x-www-form-urlencoded": components["schemas"]["CompositionDefinition"];
+                "multipart/form-data": components["schemas"]["CompositionDefinition"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompositionValidationResponse"];
+                };
+            };
+        };
+    };
     calendar_events_list: {
         parameters: {
             query?: {
-                /** @description Start date (YYYY-MM-DD). */
+                /** @description Inclusive local start date (YYYY-MM-DD) in the authenticated user's timezone. */
                 from?: string;
-                /** @description End date (YYYY-MM-DD). */
+                /** @description Exclusive local end date (YYYY-MM-DD) in the authenticated user's timezone. */
                 to?: string;
             };
             header?: never;
@@ -1884,7 +3526,7 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody?: {
+        requestBody: {
             content: {
                 "application/json": components["schemas"]["EventWrite"];
                 "application/x-www-form-urlencoded": components["schemas"]["EventWrite"];
@@ -1942,9 +3584,337 @@ export interface operations {
             };
         };
     };
-    events_retrieve: {
+    calendar_favorite_upsert: {
         parameters: {
             query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Bookmark"];
+                };
+            };
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Bookmark"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    calendar_favorite_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    calendars_ics_import: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["CalendarIcsImportRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["CalendarIcsImportRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CalendarIcsImport"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    calendars_regenerate_ics_token: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CalendarIcsToken"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    calendars_remote_refresh: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                calendar_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CalendarRemoteRefresh"];
+                "application/x-www-form-urlencoded": components["schemas"]["CalendarRemoteRefresh"];
+                "multipart/form-data": components["schemas"]["CalendarRemoteRefresh"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CalendarRemoteRefresh"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    events_list: {
+        parameters: {
+            query: {
+                calendar_ids?: string;
+                /** @description Exclusive local end date in the authenticated user's timezone. */
+                end: string;
+                org?: string;
+                /** @description Inclusive local start date in the authenticated user's timezone. */
+                start: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedEventFeedList"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    events_retrieve: {
+        parameters: {
+            query?: {
+                calendar_id?: string;
+                org?: string;
+            };
             header?: never;
             path: {
                 event_id: string;
@@ -1958,7 +3928,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Event"];
+                    "application/json": components["schemas"]["EventFeedDetail"];
                 };
             };
             401: {
@@ -2114,6 +4084,684 @@ export interface operations {
             };
         };
     };
+    event_registration_candidates_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedRegistrationCandidate"];
+                };
+            };
+        };
+    };
+    event_manager_registrations_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManagerRegistrationCreate"];
+                "application/x-www-form-urlencoded": components["schemas"]["ManagerRegistrationCreate"];
+                "multipart/form-data": components["schemas"]["ManagerRegistrationCreate"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Registration"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    events_materialize: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventMaterialize"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    events_occurrences_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventOccurrencesList"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    events_occurrences_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventOccurrencesDelete"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    events_promote_occurrence: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Event"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    event_registration_audit_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedRegistrationAuditEntry"];
+                };
+            };
+        };
+    };
+    event_registration_history_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedRegistrationHistory"];
+                };
+            };
+        };
+    };
+    event_registrations_summary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventRegistrationSummary"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    event_registrations_cancel_all: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventRegistrationCancellation"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    event_slot_generators_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedSlotGeneratorConfig"];
+                };
+            };
+        };
+    };
+    event_slot_generators_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SlotGeneratorConfig"];
+                "application/x-www-form-urlencoded": components["schemas"]["SlotGeneratorConfig"];
+                "multipart/form-data": components["schemas"]["SlotGeneratorConfig"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SlotGeneratorConfig"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    event_slot_generators_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+                generator_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    event_slot_generators_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+                generator_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedSlotGeneratorConfig"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedSlotGeneratorConfig"];
+                "multipart/form-data": components["schemas"]["PatchedSlotGeneratorConfig"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SlotGeneratorConfig"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    event_slot_generators_run: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SlotGeneratorRunResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
     event_slots_list: {
         parameters: {
             query?: never;
@@ -2218,6 +4866,153 @@ export interface operations {
             };
         };
     };
+    event_slots_delete_all: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventSlotsDeleteAllResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    event_upcoming_list: {
+        parameters: {
+            query?: {
+                calendar_ids?: string;
+                limit?: number;
+                org?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedEventFeed"];
+                };
+            };
+            /** @description No response body */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description No response body */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description No response body */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    locations_autocomplete: {
+        parameters: {
+            query: {
+                query: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LocationSuggestion"][];
+                };
+            };
+        };
+    };
+    locations_details: {
+        parameters: {
+            query: {
+                place_id: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LocationDetails"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
     me_retrieve: {
         parameters: {
             query?: never;
@@ -2253,6 +5048,285 @@ export interface operations {
             };
         };
     };
+    me_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    me_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedUserProfileWrite"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedUserProfileWrite"];
+                "multipart/form-data": components["schemas"]["PatchedUserProfileWrite"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserMe"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    me_api_tokens_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiToken"][];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    me_api_tokens_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ApiTokenCreate"];
+                "application/x-www-form-urlencoded": components["schemas"]["ApiTokenCreate"];
+                "multipart/form-data": components["schemas"]["ApiTokenCreate"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiTokenCreateResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    me_api_tokens_revoke: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    me_invitation_code_regenerate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserMe"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    me_registration_event_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedEventFeed"];
+                };
+            };
+            /** @description No response body */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description No response body */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     organizations_list: {
         parameters: {
             query?: never;
@@ -2279,6 +5353,63 @@ export interface operations {
                 };
             };
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organizations_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OrganizationCreate"];
+                "application/x-www-form-urlencoded": components["schemas"]["OrganizationCreate"];
+                "multipart/form-data": components["schemas"]["OrganizationCreate"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Organization"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2333,9 +5464,848 @@ export interface operations {
             };
         };
     };
-    organization_memberships_list: {
+    organizations_delete: {
         parameters: {
             query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organizations_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedOrganizationWrite"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedOrganizationWrite"];
+                "multipart/form-data": components["schemas"]["PatchedOrganizationWrite"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Organization"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_asset_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationAssetList"];
+                };
+            };
+        };
+    };
+    organization_asset_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["OrganizationAssetUpload"];
+                "application/x-www-form-urlencoded": components["schemas"]["OrganizationAssetUpload"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationAssetUploadResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_asset_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationAsset"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_asset_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_asset_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedOrganizationAssetRename"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedOrganizationAssetRename"];
+                "multipart/form-data": components["schemas"]["PatchedOrganizationAssetRename"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationAsset"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_discourse_disable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationDiscourseActionResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_discourse_enable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationDiscourseActionResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_discourse_sync: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationDiscourseActionResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_invitation_code_regenerate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Organization"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_invitations_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedInvitation"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_invitations_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InvitationBatchCreate"];
+                "application/x-www-form-urlencoded": components["schemas"]["InvitationBatchCreate"];
+                "multipart/form-data": components["schemas"]["InvitationBatchCreate"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvitationBatchResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_invitation_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                invitation_id: string;
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_membership_leave: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_membership_favorite_set: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Organization"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_membership_favorite_clear: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Organization"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_memberships_list: {
+        parameters: {
+            query?: {
+                /** @description Filter memberships by username, first name, or last name. */
+                search?: string;
+            };
             header?: never;
             path: {
                 org_id: string;
@@ -2369,6 +6339,168 @@ export interface operations {
                 };
             };
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_membership_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                membership_id: string;
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_membership_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                membership_id: string;
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedMembershipWrite"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedMembershipWrite"];
+                "multipart/form-data": components["schemas"]["PatchedMembershipWrite"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MembershipRoleUpdate"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    organization_join_by_code: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OrganizationJoin"];
+                "application/x-www-form-urlencoded": components["schemas"]["OrganizationJoin"];
+                "multipart/form-data": components["schemas"]["OrganizationJoin"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationJoinResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2498,6 +6630,61 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["EventSlot"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    slot_registrations_manager_action: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                action: string;
+                registration_id: string;
+                slot_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Registration"];
                 };
             };
             400: {

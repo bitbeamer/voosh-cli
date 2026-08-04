@@ -15,11 +15,15 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "SKILL.md",
+    "openapi/openapi.yaml"
   ],
   "scripts": {
+    "generate": "openapi-typescript openapi/openapi.yaml -o src/generated/schema.ts && node scripts/generate-operations.mjs",
+    "sync:openapi": "node scripts/sync-openapi.mjs",
     "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsup src/index.ts --format esm --platform node --target node20 --dts --sourcemap --no-splitting --external commander",
-    "test": "yarn build && vitest run tests/cli.test.ts tests/cli.integration.test.ts",
+    "test": "yarn build && vitest run tests/api-command.test.ts tests/cli.test.ts tests/cli.integration.test.ts",
     "test:integration": "yarn build && vitest run tests/cli.integration.test.ts",
     "test:e2e:live": "yarn build && vitest run tests/live-e2e.test.ts",
     "check": "yarn test"
@@ -30,9 +34,11 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "openapi-typescript": "7.13.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.13"
+    "vitest": "^4.0.13",
+    "yaml": "2.9.0"
   },
   "engines": {
     "node": ">=20"
