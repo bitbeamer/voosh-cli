@@ -2,7 +2,7 @@
 
 Node.js CLI for the voo.sh API.
 
-This repository is a standalone CLI-only public repo. It does not depend on a sibling `@voosh/sdk` package: the current voo.sh OpenAPI contract, generated TypeScript schema, and client are bundled locally. Common calendar workflows have ergonomic commands, while `voosh api` discovers, describes, and calls every operation in the bundled API contract. The CLI currently exposes all 86 v1 operations.
+This repository is a standalone CLI-only public repo. It does not depend on a sibling `@voosh/sdk` package: the current voo.sh OpenAPI contract, generated TypeScript schema, and client are bundled locally. Common calendar workflows have ergonomic commands, while `voosh api` discovers, describes, and calls every operation in the bundled API contract. The CLI currently exposes all 87 v1 operations.
 
 ## Install from npm
 
@@ -140,7 +140,8 @@ Unsupported natural forms and unsupported timezones return stable JSON usage err
 - `voosh events list --calendar CALENDAR_ID [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--page N]`
 - `voosh events create --calendar CALENDAR_ID --summary TEXT (--start DATETIME|--start-date YYYY-MM-DD) [--end DATETIME] [--end-date YYYY-MM-DD] [--description TEXT] [--location TEXT] [--rrule RRULE] [--slots-enabled|--no-slots-enabled] [--recurrences-enabled|--no-recurrences-enabled] [--materialize|--no-materialize]`
 - `voosh events get <event-id>`
-- `voosh events update <event-id> [event fields...]`
+- `voosh events move-targets <event-id>`
+- `voosh events update <event-id> [--owner-calendar CALENDAR_ID] [event fields...]`
 - `voosh events delete <event-id>`
 - `voosh slots list --event EVENT_ID [--page N]`
 - `voosh slots create --event EVENT_ID --resource NAME --start DATETIME --end DATETIME [--max-attendees N] [--allow-multiple-slots|--no-allow-multiple-slots] [--allow-multiple-requests|--no-allow-multiple-requests] [--confirmation-type A|C] [--show-attendees|--hide-attendees]`

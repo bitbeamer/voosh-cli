@@ -37,6 +37,7 @@ describe("generated API operation catalog", () => {
     expect(new Set(generatedOperationIds).size).toBe(generatedOperationIds.length);
     expect(generatedOperationIds).toContain("organization_asset_create");
     expect(generatedOperationIds).toContain("calendar_composition_replace");
+    expect(generatedOperationIds).toContain("events_move_targets_list");
     expect(generatedOperationIds).toContain("slot_registrations_manager_action");
 
     for (const operation of API_OPERATIONS.filter((candidate) => candidate.requestContentTypes.length > 0)) {

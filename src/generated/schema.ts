@@ -292,6 +292,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/events/{event_id}/move-targets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["events_move_targets_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/events/{event_id}/occurrences": {
         parameters: {
             query?: never;
@@ -1258,6 +1274,8 @@ export interface components {
             /** Format: uuid */
             event_id: string;
             /** Format: uuid */
+            owner_calendar_id: string;
+            /** Format: uuid */
             calendar_id: string;
             calendar_title: string;
             calendar_slug: string | null;
@@ -1302,6 +1320,8 @@ export interface components {
         EventFeedDetail: {
             /** Format: uuid */
             event_id: string;
+            /** Format: uuid */
+            owner_calendar_id: string;
             /** Format: uuid */
             calendar_id: string;
             calendar_title: string;
@@ -1348,6 +1368,21 @@ export interface components {
             created_or_updated_count: number;
             occurrence_count: number;
             results: components["schemas"]["EventFeed"][];
+        };
+        EventMoveTarget: {
+            /** Format: uuid */
+            calendar_id: string;
+            title: string;
+            /** Format: uuid */
+            organization_id: string | null;
+            organization_name: string | null;
+            organization_slug: string | null;
+            color: string;
+        };
+        EventMoveTargetList: {
+            can_move: boolean;
+            reason_code: string | null;
+            results: components["schemas"]["EventMoveTarget"][];
         };
         EventOccurrencesDelete: {
             deleted: string[];
@@ -1467,6 +1502,8 @@ export interface components {
             deleted_count: number;
         };
         EventWrite: {
+            /** Format: uuid */
+            owner_calendar_id?: string;
             /** Titel für den Event */
             summary?: string;
             /** Beschreibung */
@@ -1933,6 +1970,8 @@ export interface components {
             show_attendees?: boolean;
         };
         PatchedEventWrite: {
+            /** Format: uuid */
+            owner_calendar_id?: string;
             /** Titel für den Event */
             summary?: string;
             /** Beschreibung */
@@ -4189,6 +4228,51 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    events_move_targets_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventMoveTargetList"];
                 };
             };
             401: {

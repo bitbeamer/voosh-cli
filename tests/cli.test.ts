@@ -108,6 +108,18 @@ function createClient(overrides: Partial<VooshClient> = {}): VooshClient {
   }));
   const eventsCreate = vi.fn(async () => event);
   const eventsRetrieve = vi.fn(async () => event);
+  const eventsMoveTargets = vi.fn(async () => ({
+    can_move: true,
+    reason_code: null,
+    results: [{
+      calendar_id: CALENDAR_UUID,
+      title: "Destination",
+      organization_id: null,
+      organization_name: null,
+      organization_slug: null,
+      color: "blue",
+    }],
+  }));
   const eventsUpdate = vi.fn(async () => ({ ...event, summary: "Updated Training" }));
   const eventsDelete = vi.fn(async () => ({ code: "event_deleted" as const }));
   const slot = {
@@ -160,6 +172,7 @@ function createClient(overrides: Partial<VooshClient> = {}): VooshClient {
       list: eventsList as unknown as VooshClient["events"]["list"],
       create: eventsCreate as unknown as VooshClient["events"]["create"],
       retrieve: eventsRetrieve as unknown as VooshClient["events"]["retrieve"],
+      moveTargets: eventsMoveTargets as unknown as VooshClient["events"]["moveTargets"],
       update: eventsUpdate as unknown as VooshClient["events"]["update"],
       delete: eventsDelete as unknown as VooshClient["events"]["delete"],
     },
@@ -867,8 +880,9 @@ describe("voosh node CLI", () => {
     expect(createClientMock).not.toHaveBeenCalled();
   });
 
-  it("gets, updates, and deletes events", async () => {
+  it("gets, lists move targets, updates, and deletes events", async () => {
     const getIo = createIo();
+    const moveTargetsIo = createIo();
     const updateIo = createIo();
     const deleteIo = createIo();
     const client = createClient();
@@ -878,7 +892,12 @@ describe("voosh node CLI", () => {
       io: getIo,
       createClient: () => client,
     });
-    const updateExit = await run(["--json", "events", "update", "event-1", "--summary", "Updated Training", "--no-slots-enabled"], {
+    const moveTargetsExit = await run(["--json", "events", "move-targets", "event-1"], {
+      env: { VOOSH_API_TOKEN: "token-123" },
+      io: moveTargetsIo,
+      createClient: () => client,
+    });
+    const updateExit = await run(["--json", "events", "update", "event-1", "--owner-calendar", "cal-2", "--summary", "Updated Training", "--no-slots-enabled"], {
       env: { VOOSH_API_TOKEN: "token-123" },
       io: updateIo,
       createClient: () => client,
@@ -890,13 +909,23 @@ describe("voosh node CLI", () => {
     });
 
     expect(getExit).toBe(0);
+    expect(moveTargetsExit).toBe(0);
     expect(updateExit).toBe(0);
     expect(deleteExit).toBe(0);
     expect(JSON.parse(output(getIo.stdout))).toMatchObject({ event_id: "event-1" });
+    expect(JSON.parse(output(moveTargetsIo.stdout))).toMatchObject({
+      can_move: true,
+      results: [expect.objectContaining({ calendar_id: CALENDAR_UUID, title: "Destination" })],
+    });
     expect(JSON.parse(output(updateIo.stdout))).toMatchObject({ summary: "Updated Training", all_day: false });
     expect(JSON.parse(output(deleteIo.stdout))).toEqual({ code: "event_deleted" });
     expect(client.events.retrieve).toHaveBeenCalledWith("event-1");
-    expect(client.events.update).toHaveBeenCalledWith("event-1", { summary: "Updated Training", slots_enabled: false });
+    expect(client.events.moveTargets).toHaveBeenCalledWith("event-1");
+    expect(client.events.update).toHaveBeenCalledWith("event-1", {
+      owner_calendar_id: "cal-2",
+      summary: "Updated Training",
+      slots_enabled: false,
+    });
     expect(client.events.delete).toHaveBeenCalledWith("event-1");
   });
 

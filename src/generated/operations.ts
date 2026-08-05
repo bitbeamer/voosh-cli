@@ -547,6 +547,10 @@ export const API_OPERATIONS = [
       "application/json": {
         "type": "object",
         "properties": {
+          "owner_calendar_id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "summary": {
             "type": "string",
             "title": "Titel für den Event",
@@ -707,6 +711,10 @@ export const API_OPERATIONS = [
       "application/x-www-form-urlencoded": {
         "type": "object",
         "properties": {
+          "owner_calendar_id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "summary": {
             "type": "string",
             "title": "Titel für den Event",
@@ -867,6 +875,10 @@ export const API_OPERATIONS = [
       "multipart/form-data": {
         "type": "object",
         "properties": {
+          "owner_calendar_id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "summary": {
             "type": "string",
             "title": "Titel für den Event",
@@ -3860,6 +3872,37 @@ export const API_OPERATIONS = [
     "anonymousAllowed": false
   },
   {
+    "operationId": "events_move_targets_list",
+    "method": "GET",
+    "path": "/api/v1/events/{event_id}/move-targets",
+    "tags": [
+      "events"
+    ],
+    "parameters": [
+      {
+        "name": "event_id",
+        "in": "path",
+        "required": true,
+        "type": "string",
+        "format": "uuid"
+      }
+    ],
+    "requestBodyRequired": false,
+    "requestContentTypes": [],
+    "requestSchemas": {},
+    "responseStatuses": [
+      "200",
+      "401",
+      "403",
+      "404"
+    ],
+    "requiredScopes": [
+      "events:read"
+    ],
+    "conditionalScopes": {},
+    "anonymousAllowed": false
+  },
+  {
     "operationId": "events_occurrences_delete",
     "method": "DELETE",
     "path": "/api/v1/events/{event_id}/occurrences",
@@ -4025,6 +4068,10 @@ export const API_OPERATIONS = [
       "application/json": {
         "type": "object",
         "properties": {
+          "owner_calendar_id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "summary": {
             "type": "string",
             "title": "Titel für den Event",
@@ -4181,6 +4228,10 @@ export const API_OPERATIONS = [
       "application/x-www-form-urlencoded": {
         "type": "object",
         "properties": {
+          "owner_calendar_id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "summary": {
             "type": "string",
             "title": "Titel für den Event",
@@ -4337,6 +4388,10 @@ export const API_OPERATIONS = [
       "multipart/form-data": {
         "type": "object",
         "properties": {
+          "owner_calendar_id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "summary": {
             "type": "string",
             "title": "Titel für den Event",

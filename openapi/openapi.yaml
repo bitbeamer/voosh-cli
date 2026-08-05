@@ -1344,6 +1344,47 @@ paths:
           description: ''
       x-required-scopes:
       - events:write
+  /api/v1/events/{event_id}/move-targets:
+    get:
+      operationId: events_move_targets_list
+      parameters:
+      - in: path
+        name: event_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - events
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventMoveTargetList'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ''
+      x-required-scopes:
+      - events:read
   /api/v1/events/{event_id}/occurrences:
     get:
       operationId: events_occurrences_list
@@ -4740,6 +4781,9 @@ components:
         event_id:
           type: string
           format: uuid
+        owner_calendar_id:
+          type: string
+          format: uuid
         calendar_id:
           type: string
           format: uuid
@@ -4855,6 +4899,7 @@ components:
       - organization_id
       - organization_name
       - organization_slug
+      - owner_calendar_id
       - recurrences_enabled
       - slot_summary
       - slots_enabled
@@ -4867,6 +4912,9 @@ components:
         event_id:
           type: string
           format: uuid
+        owner_calendar_id:
+          type: string
+          format: uuid
         calendar_id:
           type: string
           format: uuid
@@ -4982,6 +5030,7 @@ components:
       - organization_id
       - organization_name
       - organization_slug
+      - owner_calendar_id
       - recurrences_enabled
       - slot_generation
       - slot_summary
@@ -5003,6 +5052,49 @@ components:
       required:
       - created_or_updated_count
       - occurrence_count
+      - results
+    EventMoveTarget:
+      type: object
+      properties:
+        calendar_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+        organization_name:
+          type: string
+          nullable: true
+        organization_slug:
+          type: string
+          nullable: true
+        color:
+          type: string
+      required:
+      - calendar_id
+      - color
+      - organization_id
+      - organization_name
+      - organization_slug
+      - title
+    EventMoveTargetList:
+      type: object
+      properties:
+        can_move:
+          type: boolean
+        reason_code:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventMoveTarget'
+      required:
+      - can_move
+      - reason_code
       - results
     EventOccurrencesDelete:
       type: object
@@ -5223,6 +5315,9 @@ components:
     EventWrite:
       type: object
       properties:
+        owner_calendar_id:
+          type: string
+          format: uuid
         summary:
           type: string
           title: Titel für den Event
@@ -6287,6 +6382,9 @@ components:
     PatchedEventWrite:
       type: object
       properties:
+        owner_calendar_id:
+          type: string
+          format: uuid
         summary:
           type: string
           title: Titel für den Event

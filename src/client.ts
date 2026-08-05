@@ -57,6 +57,9 @@ export type EventListPage = NonNullable<
 export type EventDetail = NonNullable<
   paths["/api/v1/events/{event_id}"]["get"]["responses"][200]["content"]["application/json"]
 >;
+export type EventMoveTargetList = NonNullable<
+  paths["/api/v1/events/{event_id}/move-targets"]["get"]["responses"][200]["content"]["application/json"]
+>;
 type GeneratedEventCreatePayload = NonNullable<
   NonNullable<paths["/api/v1/calendars/{calendar_id}/events"]["post"]["requestBody"]>["content"]["application/json"]
 >;
@@ -171,6 +174,7 @@ export interface VooshClient {
     list(calendarId: string, params?: EventListParams, options?: RequestOptions): Promise<EventListPage>;
     create(calendarId: string, payload: EventCreatePayload, options?: RequestOptions): Promise<EventDetail>;
     retrieve(eventId: string, options?: RequestOptions): Promise<EventDetail>;
+    moveTargets(eventId: string, options?: RequestOptions): Promise<EventMoveTargetList>;
     update(eventId: string, payload: EventUpdatePayload, options?: RequestOptions): Promise<EventDetail>;
     delete(eventId: string, options?: RequestOptions): Promise<EventDeleteSuccess>;
   };
@@ -406,6 +410,14 @@ export function createVooshClient(options: VooshClientOptions = {}): VooshClient
         withRequestId(requestOptions?.requestId, async () =>
           requireData<EventDetail>(
             await raw.GET("/api/v1/events/{event_id}", {
+              params: { path: { event_id: eventId } },
+            }),
+          ),
+        ),
+      moveTargets: (eventId, requestOptions) =>
+        withRequestId(requestOptions?.requestId, async () =>
+          requireData<EventMoveTargetList>(
+            await raw.GET("/api/v1/events/{event_id}/move-targets", {
               params: { path: { event_id: eventId } },
             }),
           ),

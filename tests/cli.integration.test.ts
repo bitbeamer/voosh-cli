@@ -9,6 +9,7 @@ const PACKAGE_ROOT = resolve(__dirname, "..");
 const CLI_ENTRYPOINT = join(PACKAGE_ROOT, "dist", "index.js");
 
 const CALENDAR_UUID = "33333333-3333-4333-8333-333333333333";
+const DESTINATION_CALENDAR_UUID = "55555555-5555-4555-8555-555555555555";
 const EVENT_UUID = "11111111-1111-4111-8111-111111111111";
 const SLOT_UUID = "22222222-2222-4222-8222-222222222222";
 const ORG_UUID = "44444444-4444-4444-8444-444444444444";
@@ -66,6 +67,15 @@ describe("voosh built CLI integration", () => {
       "--end",
       "tomorrow 20:00",
     ], { VOOSH_NOW: "2026-01-02T09:00:00Z" });
+    const moveTargets = await runCli(["--json", "events", "move-targets", EVENT_UUID]);
+    const movedEvent = await runCli([
+      "--json",
+      "events",
+      "update",
+      EVENT_UUID,
+      "--owner-calendar",
+      DESTINATION_CALENDAR_UUID,
+    ]);
     const slotRegistration = await runCli(["--json", "slots", "register", SLOT_UUID]);
     const bookmark = await runCli(["--json", "bookmarks", "add", CALENDAR_UUID]);
     const memberships = await runCli(["--json", "memberships", "list", "--org", ORG_UUID, "--page", "2"]);
@@ -82,6 +92,8 @@ describe("voosh built CLI integration", () => {
     expect(calendars.status).toBe(0);
     expect(createdCalendar.status).toBe(0);
     expect(event.status).toBe(0);
+    expect(moveTargets.status).toBe(0);
+    expect(movedEvent.status).toBe(0);
     expect(slotRegistration.status).toBe(0);
     expect(bookmark.status).toBe(0);
     expect(memberships.status).toBe(0);
@@ -90,17 +102,24 @@ describe("voosh built CLI integration", () => {
     expect(JSON.parse(calendars.stdout).results[0]).toMatchObject({ calendar_id: CALENDAR_UUID, title: "Integration Team" });
     expect(JSON.parse(createdCalendar.stdout)).toMatchObject({ calendar_id: CALENDAR_UUID, title: "Integration Created" });
     expect(JSON.parse(event.stdout)).toMatchObject({ event_id: EVENT_UUID, summary: "Integration Training", all_day: false });
+    expect(JSON.parse(moveTargets.stdout)).toMatchObject({
+      can_move: true,
+      results: [expect.objectContaining({ calendar_id: DESTINATION_CALENDAR_UUID })],
+    });
+    expect(JSON.parse(movedEvent.stdout)).toMatchObject({ owner_calendar_id: DESTINATION_CALENDAR_UUID });
     expect(JSON.parse(slotRegistration.stdout)).toMatchObject({ registration_id: "registration-1", status: "confirmed" });
     expect(JSON.parse(bookmark.stdout)).toMatchObject({ bookmark_id: "bookmark-1" });
     expect(JSON.parse(memberships.stdout).results[0]).toMatchObject({ membership_id: "membership-1", username: "alice" });
     expect(JSON.parse(updatedProfile.stdout)).toMatchObject({ username: "integration-user", language: "en" });
-    expect([me, calendars, createdCalendar, event, slotRegistration, bookmark, memberships, updatedProfile].map((result) => result.stderr)).toEqual(["", "", "", "", "", "", "", ""]);
+    expect([me, calendars, createdCalendar, event, moveTargets, movedEvent, slotRegistration, bookmark, memberships, updatedProfile].map((result) => result.stderr)).toEqual(["", "", "", "", "", "", "", "", "", ""]);
 
     expect(requests.map((request) => `${request.method} ${request.path}`)).toEqual([
       "GET /api/v1/me",
       "GET /api/v1/calendars",
       "POST /api/v1/calendars",
       `POST /api/v1/calendars/${CALENDAR_UUID}/events`,
+      `GET /api/v1/events/${EVENT_UUID}/move-targets`,
+      `PATCH /api/v1/events/${EVENT_UUID}`,
       `POST /api/v1/slots/${SLOT_UUID}/registrations/register`,
       `PUT /api/v1/calendars/${CALENDAR_UUID}/bookmark`,
       `GET /api/v1/organizations/${ORG_UUID}/memberships`,
@@ -116,9 +135,11 @@ describe("voosh built CLI integration", () => {
       start: "2026-01-03T18:00:00Z",
       end: "2026-01-03T20:00:00Z",
     });
-    expect(requests[6]?.query.get("page")).toBe("2");
-    expect(requests[7]?.contentType).toContain("application/json");
-    expect(requests[7]?.body).toEqual({ language: "en" });
+    expect(requests[5]?.contentType).toContain("application/json");
+    expect(requests[5]?.body).toEqual({ owner_calendar_id: DESTINATION_CALENDAR_UUID });
+    expect(requests[8]?.query.get("page")).toBe("2");
+    expect(requests[9]?.contentType).toContain("application/json");
+    expect(requests[9]?.body).toEqual({ language: "en" });
   });
 
   it("emits stable JSON error shapes for API failures from the built entrypoint", async () => {
@@ -207,6 +228,35 @@ async function handleRequest(request: IncomingMessage, response: ServerResponse)
       summary: payload.summary,
       start: payload.start,
       end: payload.end,
+    });
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === `/api/v1/events/${EVENT_UUID}/move-targets`) {
+    writeJson(response, 200, {
+      can_move: true,
+      reason_code: null,
+      results: [{
+        calendar_id: DESTINATION_CALENDAR_UUID,
+        title: "Destination",
+        organization_id: null,
+        organization_name: null,
+        organization_slug: null,
+        color: "blue",
+      }],
+    });
+    return;
+  }
+
+  if (request.method === "PATCH" && url.pathname === `/api/v1/events/${EVENT_UUID}`) {
+    const payload = body as Record<string, unknown>;
+    writeJson(response, 200, {
+      event_id: EVENT_UUID,
+      owner_calendar_id: payload.owner_calendar_id,
+      master_event_id: EVENT_UUID,
+      summary: "Integration Training",
+      start: "2026-01-03T18:00:00Z",
+      end: "2026-01-03T20:00:00Z",
     });
     return;
   }

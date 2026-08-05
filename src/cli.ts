@@ -90,6 +90,7 @@ interface EventListOptions {
 }
 
 interface EventWriteOptions {
+  ownerCalendar?: string;
   summary?: string;
   description?: string;
   location?: string;
@@ -490,9 +491,20 @@ export function buildProgram(runtime: CliRuntime = {}): Command {
     });
 
   events
+    .command("move-targets")
+    .description("List calendars an event can be moved to.")
+    .argument("<event-id>", "Event UUID.")
+    .action(async function (eventId: string) {
+      const context = createActionContext(this, env, runtime.io ?? DEFAULT_IO, clientFactory);
+      const data = await context.client.events.moveTargets(eventId);
+      renderResult(context.io, data, { json: context.json, quiet: context.quiet });
+    });
+
+  events
     .command("update")
     .description("Update an event.")
     .argument("<event-id>", "Event UUID.")
+    .option("--owner-calendar <calendar-id>", "Move the event to this calendar UUID.")
     .option("--summary <text>", "Event title.")
     .option("--description <text>", "Description.")
     .option("--location <text>", "Location.")
@@ -914,6 +926,7 @@ function normalizeShowAttendees(options: SlotWriteOptions): boolean | undefined 
 
 function eventPayload(options: EventWriteOptions, dateTimeContext?: DateTimeParseContext): Record<string, string | boolean> {
   const payload = compactPayload({
+    owner_calendar_id: options.ownerCalendar,
     summary: options.summary,
     description: options.description,
     location: options.location,

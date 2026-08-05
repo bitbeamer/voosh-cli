@@ -49,6 +49,8 @@ voosh --json calendars list --scope managed
 voosh --json calendars get <calendar-uuid> --with-events --days 30
 voosh --json events list --calendar <calendar-uuid> --from 2026-08-01 --to 2026-08-31
 voosh --json events get <event-uuid>
+voosh --json events move-targets <event-uuid>
+voosh --json events update <event-uuid> --owner-calendar <calendar-uuid>
 voosh --json slots list --event <event-uuid>
 voosh --json bookmarks list
 voosh --json organizations list
