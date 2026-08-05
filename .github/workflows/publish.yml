@@ -1,0 +1,39 @@
+name: Publish npm package
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.22
+      - name: Verify release version
+        run: |
+          package_version=$(node --print "require('./package.json').version")
+          test "$GITHUB_REF_NAME" = "v$package_version" || {
+            echo "Release tag $GITHUB_REF_NAME does not match package version $package_version." >&2
+            exit 1
+          }
+      - run: yarn install --frozen-lockfile
+      - run: yarn run check
+      - name: Pack smoke test
+        run: |
+          package_path=$(npm pack --silent)
+          test -f "$package_path"
+          archive_dir=$(mktemp -d)
+          tar -xzf "$package_path" -C "$archive_dir"
+          node "$archive_dir/package/dist/index.js" --help
+      - run: npm publish

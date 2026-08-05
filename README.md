@@ -11,6 +11,13 @@ npm install -g @voosh/cli
 voosh --help
 ```
 
+For one-off usage without a global installation:
+
+```bash
+npx -y @voosh/cli --help
+npx -y @voosh/cli --json me show
+```
+
 The package does not publish with `@voosh/sdk` as a runtime dependency; the internal `src/client.ts` client and generated schema are bundled into the CLI entrypoint during `yarn build`. The CLI keeps `commander` as a small external runtime dependency so Node can load Commander through its supported package entrypoint.
 
 ## Install and develop
@@ -30,6 +37,12 @@ npm pack --dry-run
 ```
 
 The pack output should contain package metadata, the README, `SKILL.md`, the bundled OpenAPI contract, and built `dist` files; source, tests, and `node_modules` are excluded by the package `files` whitelist.
+
+### Publish a release
+
+Publishing is automated by `.github/workflows/publish.yml` and uses npm trusted publishing instead of a long-lived npm token. Configure `bitbeamer/voosh-cli` and `publish.yml` as the trusted publisher for `@voosh/cli` on npm before the first automated release.
+
+To release, update the version in `package.json`, commit it, and publish a GitHub Release whose tag is exactly `v<package-version>` (for example, `v0.1.4`). The workflow rejects mismatched tags, installs locked dependencies, runs the complete offline check suite, smoke-tests the package archive, and publishes it to npm.
 
 ### Sync the API contract
 
